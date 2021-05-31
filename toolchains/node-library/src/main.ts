@@ -4,6 +4,7 @@
 
 import chalk from 'chalk';
 import { spawnSync, SpawnSyncOptionsWithBufferEncoding } from 'child_process';
+import * as esbuild from 'esbuild';
 import * as fs from 'fs';
 import { sync as glob } from 'glob';
 import { join } from 'path';
@@ -63,6 +64,22 @@ function execJest (pkgDir: string, additionalArgs: string[] = []) {
   });
 }
 
+function execEsbuild (pkgDir: string, pkgJson: any) {
+  const indexFile = join(pkgDir, 'src/index.ts');
+  if (fs.existsSync(indexFile)) {
+    esbuild.buildSync({
+      entryPoints: [indexFile],
+      outfile: join(pkgDir, 'dist/index.mjs'),
+      format: 'esm',
+      sourcemap: true,
+      write: true,
+      bundle: true,
+      platform: 'node',
+      external: Object.keys({ ...pkgJson.dependencies, ...pkgJson.devDependencies, ...pkgJson.peerDependencies })
+    });
+  }
+}
+
 // eslint-disable-next-line no-unused-expressions
 yargs(process.argv.slice(2))
   .command<{ light?: boolean }>(
@@ -100,6 +117,8 @@ yargs(process.argv.slice(2))
           ...protoFiles
         ]);
       }
+      console.log(chalk.bold`\nesbuild`);
+      execEsbuild(pkgDir, packageJson);
 
       console.log(chalk.bold`\ntypescript`);
       execTool('tsc');
