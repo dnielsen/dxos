@@ -2,7 +2,7 @@
 // Copyright 2021 DXOS.org
 //
 
-import pump from 'pump';
+import { sleep } from '@dxos/async';
 import React, { useEffect, useState } from 'react';
 
 import { createProtocols } from './protocols';
@@ -16,7 +16,15 @@ export const ProtocolStreams = () => {
     const protocols = createProtocols();
     setProtocols(protocols);
 
-    pump(protocols.protocol1.stream, protocols.protocol2.stream, protocols.protocol1.stream);
+    protocols.protocol1.stream.pipe(protocols.protocol2.stream).pipe(protocols.protocol1.stream);
+
+    console.log(protocols)
+
+    setTimeout(async () => {
+      console.log('start close')
+
+      await protocols.protocol1.close();
+    }, 1000)
   }, []);
 
   return (

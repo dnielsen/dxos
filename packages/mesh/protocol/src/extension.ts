@@ -8,6 +8,7 @@ import eos from 'end-of-stream';
 import { Nanomessage, errors as nanomessageErrors } from 'nanomessage';
 
 import { patchBufferCodec, WithTypeUrl } from '@dxos/codec-protobuf';
+import { getStackTrace } from '@dxos/debug';
 
 import {
   ERR_PROTOCOL_STREAM_CLOSED,
@@ -288,9 +289,10 @@ export class Extension extends Nanomessage {
     }
 
     assert(this._protocol);
-    eos(this._protocol.stream, () => {
-      this.close();
-    });
+    // eos(this._protocol.stream, () => {
+    //   console.log('Closing because of eos', {protocol: this._protocol, name: this._name})
+    //   this.close();
+    // });
 
     await super._open();
   }
@@ -298,6 +300,7 @@ export class Extension extends Nanomessage {
   // @override
   private async _close () {
     try {
+      console.log('extension._close', {protocol: this._protocol, name: this._name, stackTrace: getStackTrace()})
       await super._close();
       if (this._closeHandler) {
         assert(this._protocol);

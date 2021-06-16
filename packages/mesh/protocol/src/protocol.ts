@@ -9,6 +9,7 @@ import eos from 'end-of-stream';
 import protocol from 'hypercore-protocol';
 
 import { Event, synchronized } from '@dxos/async';
+import { getStackTrace } from '@dxos/debug';
 import type { Codec } from '@dxos/codec-protobuf';
 
 import {
@@ -264,6 +265,7 @@ export class Protocol {
     this._openConnection();
 
     eos(this._stream, () => {
+      console.log('protocol stream eos')
       this.close();
     });
 
@@ -274,6 +276,8 @@ export class Protocol {
 
   @synchronized
   async close () {
+    console.log('protocol.close', { stackTrace: getStackTrace() })
+
     if (!this._isOpen) {
       return;
     }

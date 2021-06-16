@@ -64,4 +64,5 @@ export function synchronized (
     const lock: Lock = this[classLockSymbol] ?? (this[classLockSymbol] = new Lock());
     return lock.executeSynchronized(() => method.apply(this, args));
   };
+  (descriptor.value as any).name = method.name;
 }
