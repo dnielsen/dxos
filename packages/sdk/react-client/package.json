@@ -7,7 +7,7 @@
   "author": "DXOS.org",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
-  "module": "dist/index.mjs",
+  "exports": "./dist/index.mjs",
   "scripts": {
     "build": "toolchain build",
     "build:test": "toolchain build:test",

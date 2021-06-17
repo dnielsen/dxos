@@ -17,6 +17,7 @@ import { ECHO } from './echo';
 import { testInvitationAuthenticator } from './invitations';
 import { Item } from './items';
 import { inviteTestPeer } from './util';
+import { performance } from 'perf_hooks';
 
 const log = debug('dxos:echo:test');
 
@@ -36,6 +37,7 @@ describe('ECHO', () => {
   };
 
   test('create party and update properties.', async () => {
+    console.log(performance.now())
     const echo = await setup(true);
     const parties = await echo.queryParties({ open: true });
     log('Parties:', parties.value.map(party => party.key.humanize()));
