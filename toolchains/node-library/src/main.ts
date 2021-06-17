@@ -148,6 +148,9 @@ yargs(process.argv.slice(2))
       .option('globalTeardown', { type: 'string', description: 'globalTeardown for test' }),
     (args) => {
       const before = Date.now();
+
+      const { packageDir, packageJson } = getPackage();
+
       execBuild();
 
       console.log(chalk.bold`\neslint`);
@@ -161,14 +164,14 @@ yargs(process.argv.slice(2))
         process.stderr.write(chalk`{yellow warn}: eslint config in package.json is ignored\n`);
       }
 
-      const protoFiles = glob('src/proto/**/*.proto', { cwd: pkgDir });
+      const protoFiles = glob('src/proto/**/*.proto', { cwd: packageDir });
       if (protoFiles.length > 0) {
         console.log(chalk.bold`\nprotobuf`);
-        const substitutions = fs.existsSync(join(pkgDir, 'src/proto/substitutions.ts')) ? join(pkgDir, 'src/proto/substitutions.ts') : undefined;
+        const substitutions = fs.existsSync(join(packageDir, 'src/proto/substitutions.ts')) ? join(pkgDir, 'src/proto/substitutions.ts') : undefined;
 
         execTool('build-protobuf', [
           '-o',
-          join(pkgDir, 'src/proto/gen'),
+          join(packageDir, 'src/proto/gen'),
           ...(substitutions ? ['-s', substitutions] : []),
           ...protoFiles
         ]);
