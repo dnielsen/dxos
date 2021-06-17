@@ -167,7 +167,7 @@ yargs(process.argv.slice(2))
       const protoFiles = glob('src/proto/**/*.proto', { cwd: packageDir });
       if (protoFiles.length > 0) {
         console.log(chalk.bold`\nprotobuf`);
-        const substitutions = fs.existsSync(join(packageDir, 'src/proto/substitutions.ts')) ? join(pkgDir, 'src/proto/substitutions.ts') : undefined;
+        const substitutions = fs.existsSync(join(packageDir, 'src/proto/substitutions.ts')) ? join(packageDir, 'src/proto/substitutions.ts') : undefined;
 
         execTool('build-protobuf', [
           '-o',
@@ -177,7 +177,7 @@ yargs(process.argv.slice(2))
         ]);
       }
       console.log(chalk.bold`\nesbuild`);
-      execEsbuild(pkgDir, packageJson);
+      execEsbuild(packageDir, packageJson);
 
       execTest(['globalSetup', 'globalTeardown'].filter(arg => !!args[arg]).map(arg => `--${arg}=${args[arg]}`));
 
