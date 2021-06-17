@@ -3,6 +3,7 @@
 //
 
 import { expect, mockFn } from 'earljs';
+import { it as test } from 'mocha';
 import waitForExpect from 'wait-for-expect';
 
 import { sleep } from '@dxos/async';
@@ -18,7 +19,7 @@ describe('WebrtcConnection', () => {
   test('open and close', async () => {
     const connection = new WebrtcTransport(
       true,
-      new Protocol(),
+      new Protocol().stream,
       PublicKey.random(),
       PublicKey.random(),
       PublicKey.random(),
@@ -35,7 +36,7 @@ describe('WebrtcConnection', () => {
     await sleep(1); // Process events
 
     expect(closedCb.calls.length).toEqual(1);
-  }, 1_000);
+  }).timeout(1_000);
 
   test('establish connection and send data through with protocol', async () => {
     const topic = PublicKey.random();
@@ -47,7 +48,7 @@ describe('WebrtcConnection', () => {
     const protocolProvider1 = testProtocolProvider(topic.asBuffer(), peer1Id.asBuffer(), plugin1);
     const connection1 = new WebrtcTransport(
       true,
-      protocolProvider1({ channel: discoveryKey(topic) }),
+      protocolProvider1({ channel: discoveryKey(topic) }).stream,
       peer1Id,
       peer2Id,
       sessionId,
@@ -64,7 +65,7 @@ describe('WebrtcConnection', () => {
     const protocolProvider2 = testProtocolProvider(topic.asBuffer(), peer2Id.asBuffer(), plugin2);
     const connection2 = new WebrtcTransport(
       false,
-      protocolProvider2({ channel: discoveryKey(topic) }),
+      protocolProvider2({ channel: discoveryKey(topic) }).stream,
       peer2Id,
       peer1Id,
       sessionId,
@@ -87,5 +88,5 @@ describe('WebrtcConnection', () => {
     await waitForExpect(() => {
       expect(mockReceive).toHaveBeenCalledWith([expect.a(Protocol), 'Foo']);
     });
-  }, 1_000);
+  }).timeout(2_000);
 });

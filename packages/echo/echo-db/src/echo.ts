@@ -6,7 +6,6 @@ import assert from 'assert';
 import debug from 'debug';
 import memdown from 'memdown';
 
-import { Event } from '@dxos/async';
 import { KeyRecord, Keyring, KeyStore, KeyType } from '@dxos/credentials';
 import { KeyPair, PublicKey } from '@dxos/crypto';
 import { PartyKey } from '@dxos/echo-protocol';
@@ -15,30 +14,21 @@ import { ModelFactory } from '@dxos/model-factory';
 import { NetworkManager, NetworkManagerOptions } from '@dxos/network-manager';
 import { ObjectModel } from '@dxos/object-model';
 import { Storage } from '@dxos/random-access-multi-storage';
+import { SubscriptionGroup } from '@dxos/util';
 
+import { Contact, HaloFactory, IdentityManager } from './halo';
+import { autoPartyOpener } from './halo/party-opener';
 import {
   InvitationAuthenticator, InvitationDescriptor, InvitationOptions, OfflineInvitationClaimer, SecretProvider
 } from './invitations';
 import { DefaultModel } from './items';
-import {
-  HALO_PARTY_CONTACT_LIST_TYPE, IdentityManager, OpenProgress, Party, PartyFactory, PartyFilter, PartyManager, PartyMember
-} from './parties';
+import { OpenProgress, Party, PartyFactory, PartyFilter, PartyManager } from './parties';
 import { ResultSet } from './result';
 import { SnapshotStore } from './snapshots';
 import { FeedStoreAdapter, createRamStorage } from './util';
 
+// TODO(burdon): Log vs error.
 const log = debug('dxos:echo');
-
-export interface Options {
-  readOnly?: false;
-  readLogger?: (msg: any) => void;
-  writeLogger?: (msg: any) => void;
-}
-
-// TODO(burdon): Move?
-export type Contact = PartyMember;
-
-// TODO(burdon): Create index.ts in each subfolder (no indirect imports).
 
 /**
  * Various options passed to `ECHO.create`.
@@ -67,6 +57,7 @@ export interface EchoCreationOptions {
   /**
    * Whether to save and load snapshots. Defaults to `true`.
    */
+  // TODO(burdon): Hierarchical config.
   snapshots?: boolean
 
   /**
@@ -74,6 +65,7 @@ export interface EchoCreationOptions {
    */
   snapshotInterval?: number
 
+  // TODO(burdon): Comments.
   readLogger?: (msg: any) => void;
   writeLogger?: (msg: any) => void;
 }
@@ -90,29 +82,25 @@ export interface EchoCreationOptions {
  * Messages are streamed into the pipeline (from the `FeedStore`) in logical order, determined by the
  * `Spactime` `Timeframe` (which implements a vector clock).
  */
+// TODO(burdon): Create ECHOError class for public errors.
 export class ECHO {
-  private readonly _feedStore: FeedStoreAdapter;
-
   private readonly _keyring: Keyring;
-
   private readonly _identityManager: IdentityManager;
-
-  private readonly _snapshotStore: SnapshotStore;
-
-  private readonly _networkManager: NetworkManager;
-
+  private readonly _feedStore: FeedStoreAdapter;
   private readonly _modelFactory: ModelFactory;
-
+  private readonly _networkManager: NetworkManager;
+  private readonly _snapshotStore: SnapshotStore;
   private readonly _partyManager: PartyManager;
+  private readonly _subs = new SubscriptionGroup();
 
   /**
    * Creates a new instance of ECHO.
-   *
-   * Without any parameters will create an in-memory database.
+   * Default will create an in-memory database.
    */
+  // TODO(burdon): Factor out config an define type.
   constructor ({
-    feedStorage = createRamStorage(),
     keyStorage = memdown(),
+    feedStorage = createRamStorage(),
     snapshotStorage = createRamStorage(),
     networkManagerOptions,
     snapshots = true,
@@ -120,88 +108,53 @@ export class ECHO {
     readLogger,
     writeLogger
   }: EchoCreationOptions = {}) {
-    this._feedStore = FeedStoreAdapter.create(feedStorage);
+    this._keyring = new Keyring(new KeyStore(keyStorage));
 
-    const keyStore = new KeyStore(keyStorage);
-    this._keyring = new Keyring(keyStore);
-    this._identityManager = new IdentityManager(this._keyring);
+    this._feedStore = FeedStoreAdapter.create(feedStorage);
 
     this._modelFactory = new ModelFactory()
       .registerModel(ObjectModel)
       .registerModel(DefaultModel);
 
-    const options = {
-      readLogger,
-      writeLogger,
-      snapshots,
-      snapshotInterval
-    };
-
     this._networkManager = new NetworkManager(networkManagerOptions);
     this._snapshotStore = new SnapshotStore(snapshotStorage);
 
+    const options = {
+      snapshots,
+      snapshotInterval,
+      readLogger,
+      writeLogger
+    };
+
     const partyFactory = new PartyFactory(
-      this._identityManager,
+      () => this._identityManager.identity,
+      this._networkManager,
       this._feedStore,
       this._modelFactory,
-      this._networkManager,
       this._snapshotStore,
       options
     );
 
+    const haloFactory = new HaloFactory(
+      partyFactory,
+      this._networkManager,
+      this._keyring
+    );
+    this._identityManager = new IdentityManager(this._keyring, haloFactory);
+
     this._partyManager = new PartyManager(
-      this._identityManager,
       this._feedStore,
       this._snapshotStore,
+      () => this._identityManager.identity,
       partyFactory
     );
-  }
 
-  get isOpen () {
-    return this._partyManager.opened;
-  }
-
-  get identityReady () {
-    return this._identityManager.ready;
-  }
-
-  // TODO(burdon): Different from 'identityReady'?
-  get isHaloInitialized (): boolean {
-    return !!this._identityManager.halo;
-  }
-
-  // TODO(burdon): Wrap up identity related methods?
-  get identityKey (): KeyRecord | undefined {
-    return this._identityManager.identityKey;
-  }
-
-  get identityDisplayName (): string | undefined {
-    return this._identityManager.displayName;
-  }
-
-  get modelFactory (): ModelFactory {
-    return this._modelFactory;
-  }
-
-  /**
-   * For devtools.
-   */
-  get keyring (): Keyring {
-    return this._keyring;
-  }
-
-  /**
-   * For devtools.
-   */
-  get feedStore (): FeedStore {
-    return this._feedStore.feedStore;
-  }
-
-  /**
-   * For devtools.
-   */
-  get networkManager (): NetworkManager {
-    return this._networkManager;
+    this._identityManager.ready.once(() => {
+      // It might be the case that halo gets closed before this has a chance to execute.
+      if (this._identityManager.halo?.isOpen) {
+        this._subs.push(autoPartyOpener(this._identityManager.halo!, this._partyManager));
+      }
+    });
   }
 
   toString () {
@@ -210,29 +163,100 @@ export class ECHO {
     })})`;
   }
 
+  get isOpen () {
+    return this._partyManager.isOpen;
+  }
+
+  //
+  // HALO
+  // TODO(burdon): Expose as Profile API class.
+  //
+
+  // TODO(burdon): Different from 'identityReady'?
+  get isHaloInitialized (): boolean {
+    return this._identityManager.halo !== undefined;
+  }
+
+  // TODO(burdon): Remove? This returns an event handler.
+  get identityReady () {
+    return this._identityManager.ready;
+  }
+
+  // TODO(burdon): Factor out into Profile API.
+  get identityKey (): KeyRecord | undefined {
+    return this._identityManager.identityKey;
+  }
+
+  // TODO(burdon): Factor out into Profile API.
+  get identityDisplayName (): string | undefined {
+    return this._identityManager.displayName;
+  }
+
+  //
+  // Devtools.
+  // TODO(burdon): Expose single devtools object.
+  //
+
+  get keyring (): Keyring {
+    return this._keyring;
+  }
+
+  get feedStore (): FeedStore {
+    return this._feedStore.feedStore; // TODO(burdon): Why not return top-level object?
+  }
+
+  get networkManager (): NetworkManager {
+    return this._networkManager;
+  }
+
+  get modelFactory (): ModelFactory {
+    return this._modelFactory;
+  }
+
   /**
    * Opens the party and constructs the inbound/outbound mutation streams.
    */
   async open (onProgressCallback?: ((progress: OpenProgress) => void) | undefined) {
-    if (!this.isOpen) {
-      await this._keyring.load();
-      await this._partyManager.open(onProgressCallback);
+    if (this.isOpen) {
+      return;
     }
+
+    await this._keyring.load();
+    await this._feedStore.open();
+
+    // TODO(burdon): Replace with events.
+    onProgressCallback?.({ haloOpened: false });
+
+    // Open the HALO first (if present).
+    await this._identityManager.loadFromStorage();
+
+    onProgressCallback?.({ haloOpened: true });
+
+    await this._partyManager.open(onProgressCallback);
   }
 
   /**
    * Closes the party and associated streams.
    */
   async close () {
-    if (this.isOpen) {
-      // TODO(marik-d): Close network manager.
-      await this._partyManager.close();
+    if (!this.isOpen) {
+      return;
     }
+
+    this._subs.unsubscribe();
+
+    await this._identityManager.halo?.close();
+
+    // TODO(marik-d): Close network manager.
+    await this._partyManager.close();
+
+    await this._feedStore.close();
   }
 
   /**
    * Removes all data and closes this ECHO instance.
    */
+  // TODO(burdon): Enable re-open.
   async reset () {
     await this.close();
 
@@ -257,35 +281,9 @@ export class ECHO {
     }
   }
 
-  /**
-   * Create Profile. Add Identity key if public and secret key are provided.
-   */
-  async createIdentity (keyPair: KeyPair) {
-    const { publicKey, secretKey } = keyPair;
-    assert(publicKey, 'Invalid publicKey');
-    assert(secretKey, 'Invalid secretKey');
-
-    if (this._identityManager.identityKey) {
-      // TODO(burdon): Bad API: Semantics change based on options.
-      // TODO(burdon): createProfile isn't party of this pakage.
-      throw new Error('Identity key already exists. Call createProfile without a keypair to only create a halo party.');
-    }
-
-    await this._keyring.addKeyRecord({ secretKey, publicKey: PublicKey.from(publicKey), type: KeyType.IDENTITY });
-  }
-
-  async createHalo (displayName?: string) {
-    if (this._identityManager.halo) {
-      throw new Error('HALO party already exists');
-    }
-    if (!this._identityManager.identityKey) {
-      throw new Error('Cannot create HALO. Identity key not found.');
-    }
-
-    await this._partyManager.createHalo({
-      identityDisplayName: displayName || this._identityManager.identityKey.publicKey.humanize()
-    });
-  }
+  //
+  // Parties
+  //
 
   /**
    * Creates a new party.
@@ -305,7 +303,7 @@ export class ECHO {
    * @param {PartyKey} partyKey
    */
   getParty (partyKey: PartyKey): Party | undefined {
-    assert(this._partyManager.opened, 'ECHO not open.');
+    assert(this._partyManager.isOpen, 'ECHO not open.');
 
     const impl = this._partyManager.parties.find(party => party.key.equals(partyKey));
     // TODO(burdon): Don't create a new instance (maintain map).
@@ -318,7 +316,7 @@ export class ECHO {
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   queryParties (filter?: PartyFilter): ResultSet<Party> {
-    assert(this._partyManager.opened, 'ECHO not open.');
+    assert(this._partyManager.isOpen, 'ECHO not open.');
 
     return new ResultSet(
       this._partyManager.update.discardParameter(), () => this._partyManager.parties.map(impl => new Party(impl))
@@ -331,69 +329,97 @@ export class ECHO {
    * @param secretProvider
    */
   async joinParty (invitationDescriptor: InvitationDescriptor, secretProvider?: SecretProvider): Promise<Party> {
-    assert(this._partyManager.opened, 'ECHO not open.');
+    assert(this._partyManager.isOpen, 'ECHO not open.');
 
     const actualSecretProvider =
-      secretProvider ?? OfflineInvitationClaimer.createSecretProvider(this._partyManager.identityManager);
+      secretProvider ?? OfflineInvitationClaimer.createSecretProvider(this._identityManager);
 
     const impl = await this._partyManager.joinParty(invitationDescriptor, actualSecretProvider);
     return new Party(impl);
   }
 
+  //
+  // HALO
+  // TODO(burdon): Factor out HALO-specific API?
+  //
+
   /**
-   * Create an invitation to an exiting Identity HALO.
+   * Create Profile. Add Identity key if public and secret key are provided.
+   */
+  // TODO(burdon): Why is this separate from createHalo?
+  async createIdentity (keyPair: KeyPair) {
+    const { publicKey, secretKey } = keyPair;
+    assert(publicKey, 'Invalid publicKey');
+    assert(secretKey, 'Invalid secretKey');
+
+    if (this._identityManager.identityKey) {
+      // TODO(burdon): Bad API: Semantics change based on options.
+      // TODO(burdon): createProfile isn't part of this package.
+      throw new Error('Identity key already exists. Call createProfile without a keypair to only create a halo party.');
+    }
+
+    await this._keyring.addKeyRecord({ secretKey, publicKey: PublicKey.from(publicKey), type: KeyType.IDENTITY });
+  }
+
+  /**
+   * Creates the initial HALO party.
+   * @param displayName
+   */
+  // TODO(burdon): Return Halo API object?
+  async createHalo (displayName?: string) {
+    // TODO(burdon): Why not assert?
+    if (this._identityManager.halo) {
+      throw new Error('HALO party already exists');
+    }
+    if (!this._identityManager.identityKey) {
+      throw new Error('Cannot create HALO. Identity key not found.');
+    }
+
+    await this._identityManager.createHalo({
+      identityDisplayName: displayName || this._identityManager.identityKey.publicKey.humanize()
+    });
+  }
+
+  /**
+   * Joins an existing identity HALO from a recovery seed phrase.
+   */
+  async recoverHalo (seedPhrase: string) {
+    assert(this._partyManager.isOpen, 'ECHO not open.');
+    assert(!this._identityManager.halo, 'HALO already exists.');
+    assert(!this._identityManager.identityKey, 'Identity key already exists.');
+
+    const impl = await this._identityManager.recoverHalo(seedPhrase);
+    return new Party(impl);
+  }
+
+  /**
+   * Joins an existing identity HALO by invitation.
+   */
+  async joinHalo (invitationDescriptor: InvitationDescriptor, secretProvider: SecretProvider) {
+    assert(this._partyManager.isOpen, 'ECHO not open.');
+    assert(!this._identityManager.halo, 'HALO already exists.');
+
+    const impl = await this._identityManager.joinHalo(invitationDescriptor, secretProvider);
+    return new Party(impl);
+  }
+
+  /**
+   * Create an invitation to an exiting identity HALO.
    */
   async createHaloInvitation (authenticationDetails: InvitationAuthenticator, options?: InvitationOptions) {
-    assert(this._identityManager.halo, 'Cannot create invitation because halo does not exists');
+    assert(this._identityManager.halo, 'HALO not initialized.');
+
     return this._identityManager.halo.invitationManager.createInvitation(authenticationDetails, options);
   }
 
   /**
-   * Joins an existing Identity HALO by invitation.
+   * Query for contacts. Contacts represent member keys across all known Parties.
    */
-  async joinHalo (invitationDescriptor: InvitationDescriptor, secretProvider: SecretProvider) {
-    assert(this._partyManager.opened, 'ECHO not open.');
-    assert(!this._partyManager.identityManager.halo, 'HALO already exists.');
-
-    const impl = await this._partyManager.joinHalo(invitationDescriptor, secretProvider);
-    return new Party(impl);
-  }
-
-  /**
-   * Joins an existing Identity HALO from a recovery seed phrase.
-   */
-  async recoverHalo (seedPhrase: string) {
-    assert(this._partyManager.opened, 'ECHO not open.');
-    assert(!this._partyManager.identityManager.halo, 'HALO already exists.');
-    assert(!this._partyManager.identityManager.identityKey, 'Identity key already exists.');
-
-    const impl = await this._partyManager.recoverHalo(seedPhrase);
-    return new Party(impl);
-  }
-
-  /**
-   * Query for contacts.  Contacts represent member keys across all known Parties.
-   */
+  // TODO(burdon): Expose ContactManager directly.
   queryContacts (): ResultSet<Contact> {
-    assert(this._partyManager.opened, 'ECHO not open.');
-    assert(this._partyManager.identityManager.halo, 'HALO required.');
+    assert(this._partyManager.isOpen, 'ECHO not open.');
+    assert(this._identityManager.halo, 'Invalid HALO.');
 
-    const results = this._partyManager.identityManager.halo.database.queryItems({ type: HALO_PARTY_CONTACT_LIST_TYPE });
-
-    const getter = (): Contact[] => {
-      const [contactListItem] = results.value;
-      const contacts = contactListItem?.model.toObject();
-      return Object.values(contacts ?? {}).map((contact: any) => ({
-        publicKey: PublicKey.from(contact.publicKey._value),
-        displayName: contact.displayName
-      }));
-    };
-
-    const event = new Event();
-    results.subscribe(() => {
-      event.emit();
-    });
-
-    return new ResultSet(event, getter);
+    return this._identityManager.halo.contacts.queryContacts();
   }
 }

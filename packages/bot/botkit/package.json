@@ -1,6 +1,6 @@
 {
   "name": "@dxos/botkit",
-  "version": "2.10.8",
+  "version": "2.10.10",
   "description": "Botkit",
   "keywords": [],
   "license": "AGPL-3.0",
@@ -9,6 +9,7 @@
   "types": "dist/src/index.d.ts",
   "scripts": {
     "build": "toolchain build",
+    "build:test": "toolchain build:test",
     "test": "toolchain test",
     "lint": "toolchain lint"
   },

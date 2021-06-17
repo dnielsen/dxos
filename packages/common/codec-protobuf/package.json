@@ -1,6 +1,6 @@
 {
   "name": "@dxos/codec-protobuf",
-  "version": "2.10.8",
+  "version": "2.10.10",
   "license": "MIT",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -9,8 +9,9 @@
     "src"
   ],
   "scripts": {
-    "build": "tsc && pnpm run lint && pnpm run test 2>&1 && true",
-    "test": "jest",
+    "build": "tsc",
+    "build:test": "pnpm run build && pnpm run test",
+    "test": "pnpm run lint && jest 2>&1",
     "lint": "eslint '{src,test}/**/*.ts'"
   },
   "eslintConfig": {

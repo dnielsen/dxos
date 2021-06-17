@@ -7,6 +7,7 @@ import debug from 'debug';
 
 import { PublicKeyLike, PublicKey } from '@dxos/crypto';
 import { ERR_EXTENSION_RESPONSE_FAILED } from '@dxos/protocol';
+import { arraysEqual } from '@dxos/util';
 
 import { Keyring } from '../keys';
 import { getPartyCredentialMessageType } from '../party';
@@ -115,8 +116,8 @@ export class Greeter {
       return this._handleBegin(invitationId);
     }
 
-    assert(Buffer.isBuffer(secret));
-    const invitation = await this._getInvitation(invitationId, secret);
+    assert(secret, 'Secret is missing.');
+    const invitation = await this._getInvitation(invitationId, Buffer.isBuffer(secret) ? secret : Buffer.from(secret));
     if (!invitation) {
       throw new ERR_EXTENSION_RESPONSE_FAILED(GreetingCommandPlugin.EXTENSION_NAME, ERR_GREET_INVALID_INVITATION, 'Invalid invitation');
     }
@@ -225,7 +226,7 @@ export class Greeter {
 
     for await (const message of params) {
       // Every message needs to have our nonce inside it.
-      if (!message.payload.signed.nonce.equals(invitation.nonce)) {
+      if (!arraysEqual(message.payload.signed.nonce, invitation.nonce)) {
         throw new ERR_EXTENSION_RESPONSE_FAILED(GreetingCommandPlugin.EXTENSION_NAME, ERR_GREET_INVALID_NONCE, `Invalid nonce: ${message.payload.signed.nonce.toString('hex')}`);
       }
 

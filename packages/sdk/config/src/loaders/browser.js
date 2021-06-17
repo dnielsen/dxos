@@ -6,7 +6,10 @@
 
 /* global __DXOS_CONFIG__ __CONFIG_DYNAMICS__ __CONFIG_ENVS__ __CONFIG_DEFAULTS__ */
 
-import { fetch } from 'node-fetch';
+import fetch from 'node-fetch';
+
+// Fix a bug making fetch not being properly bound with webpack.
+const fetchBound = fetch;
 
 const CONFIG_ENDPOINT = '/config/config.json';
 
@@ -16,7 +19,7 @@ export const LocalStorage = (item = 'options') => {
 
 export const Dynamics = async () => {
   const { publicUrl = '', dynamic } = __DXOS_CONFIG__;
-  return !dynamic ? __CONFIG_DYNAMICS__ : (await fetch(`${publicUrl}${CONFIG_ENDPOINT}`)).json();
+  return !dynamic ? __CONFIG_DYNAMICS__ : (await fetchBound(`${publicUrl}${CONFIG_ENDPOINT}`)).json();
 };
 
 export const Envs = () => {

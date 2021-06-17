@@ -12,61 +12,49 @@ import { PartyKey, PartySnapshot, Timeframe, FeedKey } from '@dxos/echo-protocol
 import { ModelFactory } from '@dxos/model-factory';
 import { NetworkManager } from '@dxos/network-manager';
 
+import { ActivationOptions, PartyActivator, Identity } from '../halo';
 import { InvitationManager } from '../invitations';
 import { Database } from '../items';
 import { SnapshotStore } from '../snapshots';
 import { FeedStoreAdapter } from '../util';
-import { IdentityManager } from './identity-manager';
 import { PartyCore, PartyOptions } from './party-core';
 import { PartyProtocol } from './party-protocol';
 
-// TODO(burdon): Format?
 export const PARTY_ITEM_TYPE = 'dxn://dxos/item/party';
 export const PARTY_TITLE_PROPERTY = 'title';
 
+// TODO(burdon): Factor out public API.
+export interface PartyMember {
+  publicKey: PublicKey,
+  displayName?: string
+}
+
+// TODO(burdon): Factor out public API.
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface PartyFilter {}
 
-export interface ActivationOptions {
-  global?: boolean;
-  device?: boolean;
-}
-
-export interface PartyActivator {
-  isActive(): boolean,
-  getLastKnownTitle(): string,
-  setLastKnownTitle(title: string): Promise<void>,
-  activate(options: ActivationOptions): Promise<void>;
-  deactivate(options: ActivationOptions): Promise<void>;
-}
-
 /**
- * A Party represents a shared dataset containing queryable Items that are constructed from an ordered stream
- * of mutations.
+ * Internal representation of a party.
  */
 // TODO(burdon): Rename PartyImpl.
 export class PartyInternal {
   public readonly update = new Event<void>();
 
+  // TODO(burdon): Merge with PartyInternal.
   private readonly _partyCore: PartyCore;
-
-  /**
-   * Snapshot to be restored from when party.open() is called.
-   */
-  private _subscriptions: (() => void)[] = [];
-
-  private _protocol?: PartyProtocol;
-  private _invitationManager?: InvitationManager;
 
   private readonly _activator?: PartyActivator;
 
+  private _invitationManager?: InvitationManager;
+  private _protocol?: PartyProtocol;
+
   constructor (
     _partyKey: PartyKey,
-    private readonly _identityManager: IdentityManager,
     _feedStore: FeedStoreAdapter,
     _modelFactory: ModelFactory,
-    private readonly _networkManager: NetworkManager,
     _snapshotStore: SnapshotStore,
+    private readonly _identity: Identity,
+    private readonly _networkManager: NetworkManager,
     private readonly _hints: KeyHint[] = [],
     _initialTimeframe?: Timeframe,
     _options: PartyOptions = {}
@@ -79,7 +67,10 @@ export class PartyInternal {
       _initialTimeframe,
       _options
     );
-    this._activator = this._identityManager.halo?.createPartyActivator(this);
+
+    if (this._identity.halo) {
+      this._activator = new PartyActivator(this._identity.halo, this);
+    }
   }
 
   get key (): PartyKey {
@@ -131,11 +122,11 @@ export class PartyInternal {
 
     this._invitationManager = new InvitationManager(
       this._partyCore.processor,
-      this._identityManager,
+      this._identity,
       this._networkManager
     );
 
-    assert(this._identityManager.deviceKey, 'Missing device key.');
+    assert(this._identity.deviceKey, 'Missing device key.');
 
     // Network/swarm.
     this._protocol = new PartyProtocol(
@@ -144,7 +135,7 @@ export class PartyInternal {
       this._partyCore.feedStore,
       this._partyCore.processor.getActiveFeedSet(),
       this._invitationManager,
-      this._identityManager,
+      this._identity,
       this._createCredentialsProvider(this._partyCore.key, PublicKey.from(this._partyCore.getWriteFeed().key)),
       this._partyCore.processor.authenticator
     );
@@ -171,19 +162,17 @@ export class PartyInternal {
     }
 
     await this._partyCore.close();
-
     await this._protocol?.stop();
-    this._protocol = undefined;
 
+    this._protocol = undefined;
     this._invitationManager = undefined;
 
-    this._subscriptions.forEach(cb => cb());
     this.update.emit();
 
     return this;
   }
 
-  get isActive () {
+  get isActive (): boolean {
     assert(this._activator, 'PartyActivator required');
     return this._activator.isActive;
   }
@@ -244,11 +233,11 @@ export class PartyInternal {
   private _createCredentialsProvider (partyKey: PartyKey, feedKey: FeedKey) {
     return {
       get: () => Buffer.from(Authenticator.encodePayload(createAuthMessage(
-        this._identityManager.keyring,
+        this._identity.keyring,
         partyKey,
-        this._identityManager.identityKey ?? raise(new Error('No identity key')),
-        this._identityManager.deviceKeyChain ?? this._identityManager.deviceKey ?? raise(new Error('No device key')),
-        this._identityManager.keyring.getKey(feedKey)
+        this._identity.identityKey ?? raise(new Error('No identity key')),
+        this._identity.deviceKeyChain ?? this._identity.deviceKey ?? raise(new Error('No device key')),
+        this._identity.keyring.getKey(feedKey)
       )))
     };
   }

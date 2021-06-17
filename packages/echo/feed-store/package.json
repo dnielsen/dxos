@@ -1,6 +1,6 @@
 {
   "name": "@dxos/feed-store",
-  "version": "2.10.8",
+  "version": "2.10.10",
   "description": "A consistent store for your hypercore feeds.",
   "homepage": "https://github.com/dxos/feed-store#readme",
   "bugs": {
@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "build": "toolchain build",
+    "build:test": "toolchain build:test",
     "lint": "toolchain lint",
     "test": "toolchain test",
     "benchmark": "pnpm run build && pnpm run benchmark:node && pnpm run benchmark:browser",

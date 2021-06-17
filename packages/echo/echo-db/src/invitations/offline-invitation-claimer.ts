@@ -21,7 +21,7 @@ import { keyToString, PublicKey, randomBytes } from '@dxos/crypto';
 import { raise } from '@dxos/debug';
 import { FullyConnectedTopology, NetworkManager } from '@dxos/network-manager';
 
-import { IdentityManager } from '../parties';
+import { IdentityManager } from '../halo';
 import { SecretProvider, SecretValidator } from './common';
 import { greetingProtocolProvider } from './greeting-protocol-provider';
 import { GreetingState } from './greeting-responder';
@@ -42,7 +42,6 @@ export class OfflineInvitationClaimer {
 
   constructor (
     private readonly _networkManager: NetworkManager,
-    private readonly _identityManager: IdentityManager,
     private readonly _invitationDescriptor: InvitationDescriptor
   ) {
     assert(InvitationDescriptorType.OFFLINE_KEY === _invitationDescriptor.type);

@@ -10,6 +10,7 @@ import {
   PublicKey, PublicKeyLike, KeyPair, keyToBuffer, randomBytes,
   sign as cryptoSign, verify as cryptoVerify
 } from '@dxos/crypto';
+import { arraysEqual } from '@dxos/util';
 
 import { isSignedMessage, unwrapMessage } from '../party';
 import {
@@ -61,7 +62,7 @@ class SignatureValidationCache {
     if (sigResults.length) {
       const stringy = canonicalStringify(obj);
       for (const result of sigResults) {
-        if (result.sig.equals(sig) && result.key.equals(key) && result.stringy === stringy) {
+        if (arraysEqual(result.sig, sig) && result.key.equals(key) && result.stringy === stringy) {
           cacheMetrics.inc('HIT');
           return result.valid;
         }
@@ -78,6 +79,8 @@ class SignatureValidationCache {
  */
 export class Keyring {
   static _signatureValidationCache = new SignatureValidationCache();
+
+  // TODO(burdon): Relocate static methods.
 
   @meter
   static cryptoVerify (message: Buffer, signature: Buffer, publicKey: Buffer) {
@@ -278,7 +281,6 @@ export class Keyring {
   }
 
   private readonly _keystore: KeyStore;
-
   private readonly _keyCache = new Map<string, any>();
   private readonly _findTrustedCache = new Map<string, PublicKeyLike>();
 
@@ -655,7 +657,7 @@ export class Keyring {
    */
   @meter
   rawSign (data: Buffer, keyRecord: KeyRecord) {
-    assert(Buffer.isBuffer(data));
+    assert(Buffer.isBuffer(data), 'Data to sign is not a buffer.');
     assert(keyRecord);
     assertValidPublicKey(keyRecord.publicKey);
     assertNoSecrets(keyRecord);

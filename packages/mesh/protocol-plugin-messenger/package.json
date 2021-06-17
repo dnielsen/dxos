@@ -1,6 +1,6 @@
 {
   "name": "@dxos/protocol-plugin-messenger",
-  "version": "2.10.8",
+  "version": "2.10.10",
   "description": "Protocol plugin messenger.",
   "homepage": "https://github.com/dxos/protocol/tree/master/packages/protocol-plugin-messenger#readme",
   "bugs": {
@@ -19,11 +19,12 @@
   ],
   "scripts": {
     "build": "toolchain build",
+    "build:test": "toolchain build:test",
     "test": "toolchain test",
     "lint": "toolchain lint"
   },
   "dependencies": {
-    "@dxos/broadcast": "~1.0.0-beta.11",
+    "@dxos/broadcast": "workspace:*",
     "@dxos/codec-protobuf": "workspace:*",
     "@dxos/protocol": "workspace:*",
     "debug": "^4.1.1"

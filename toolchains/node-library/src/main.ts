@@ -60,7 +60,7 @@ function execJest (pkgDir: string, additionalArgs: string[] = []) {
   );
   const config = isReactLib ? join(selfDir, 'jest.config.react.json') : join(selfDir, 'jest.config.json');
   execTool('jest', ['--config', config, '--passWithNoTests', '--rootDir', pkgDir, ...additionalArgs], {
-    stdio: ['inherit', 'inherit', process.stdout]
+    stdio: ['inherit', 'inherit', process.stdout] // Redirect stderr > stdout.
   });
 }
 
@@ -80,22 +80,78 @@ function execEsbuild (pkgDir: string, pkgJson: any) {
   }
 }
 
+function execMocha (additionalArgs: string[] = []) {
+  execTool('mocha', ['-r', 'ts-node/register/transpile-only', '--exit', '-t', '15000', 'src/**/*.test.ts', ...additionalArgs], {
+    stdio: ['inherit', 'inherit', process.stdout] // Redirect stderr > stdout.
+  });
+}
+
+function execBuild () {
+  const { packageDir, packageJson } = getPackage();
+
+  if (packageJson.jest) {
+    process.stderr.write(chalk`{yellow warn}: jest config in package.json is ignored\n`);
+  }
+
+  if (packageJson.eslintConfig) {
+    process.stderr.write(chalk`{yellow warn}: eslint config in package.json is ignored\n`);
+  }
+
+  const protoFiles = glob('src/proto/**/*.proto', { cwd: packageDir });
+  if (protoFiles.length > 0) {
+    console.log(chalk.bold`\nprotobuf`);
+    const substitutions = fs.existsSync(join(packageDir, 'src/proto/substitutions.ts')) ? join(packageDir, 'src/proto/substitutions.ts') : undefined;
+
+    execTool('build-protobuf', [
+      '-o',
+      join(packageDir, 'src/proto/gen'),
+      ...(substitutions ? ['-s', substitutions] : []),
+      ...protoFiles
+    ]);
+  }
+
+  console.log(chalk.bold`\ntypescript`);
+  execTool('tsc');
+}
+
+function execTest (additionalArgs?: string[]) {
+  const { packageDir, packageJson } = getPackage();
+
+  if (packageJson.toolchain?.testingFramework === 'mocha') {
+    console.log(chalk.bold`\nmocha`);
+    execMocha(additionalArgs);
+  } else {
+    console.log(chalk.bold`\njest`);
+    execJest(packageDir, additionalArgs);
+  }
+}
+
 // eslint-disable-next-line no-unused-expressions
 yargs(process.argv.slice(2))
-  .command<{ light?: boolean }>(
-    'build [--light]',
+  .command(
+    'build',
+    'Build the package.',
+    yargs => yargs
+      .strict(),
+    () => {
+      const before = Date.now();
+      execBuild();
+      console.log(chalk`\n{green.bold BUILD COMPLETE} in {bold ${Date.now() - before}} ms`);
+    }
+  )
+  .command(
+    'build:test',
     'build, lint, and test the package',
     yargs => yargs
       .strict()
       .option('globalSetup', { type: 'string', description: 'globalSetup for test' })
-      .option('globalTeardown', { type: 'string', description: 'globalTeardown for test' })
-      .option('light', { type: 'boolean', description: 'don\'t run lint or test' }),
+      .option('globalTeardown', { type: 'string', description: 'globalTeardown for test' }),
     (args) => {
       const before = Date.now();
+      execBuild();
 
-      const pkgDir = getPackageDir();
-
-      const packageJson = JSON.parse(fs.readFileSync(join(getPackageDir(), 'package.json'), 'utf-8'));
+      console.log(chalk.bold`\neslint`);
+      execLint();
 
       if (packageJson.jest) {
         process.stderr.write(chalk`{yellow warn}: jest config in package.json is ignored\n`);
@@ -120,18 +176,9 @@ yargs(process.argv.slice(2))
       console.log(chalk.bold`\nesbuild`);
       execEsbuild(pkgDir, packageJson);
 
-      console.log(chalk.bold`\ntypescript`);
-      execTool('tsc');
+      execTest(['globalSetup', 'globalTeardown'].filter(arg => !!args[arg]).map(arg => `--${arg}=${args[arg]}`));
 
-      if (!args.light) {
-        console.log(chalk.bold`\neslint`);
-        execLint();
-
-        console.log(chalk.bold`\jest`);
-        execJest(pkgDir, ['globalSetup', 'globalTeardown'].filter(arg => !!args[arg]).map(arg => `--${arg}=${args[arg]}`));
-      }
-
-      console.log(chalk`\n{green.bold BUILD COMPLETE} in {bold ${Date.now() - before}} ms`);
+      console.log(chalk`\n{green.bold CHECK COMPLETE} in {bold ${Date.now() - before}} ms`);
     }
   )
   .command(
@@ -147,8 +194,7 @@ yargs(process.argv.slice(2))
     'run tests',
     yargs => yargs.parserConfiguration({ 'unknown-options-as-args': true }),
     ({ _ }) => {
-      const pkgDir = getPackageDir();
-      execJest(pkgDir, _.slice(1).map(String));
+      execTest(_.slice(1).map(String));
     }
   )
   .command<{ command: string }>(
@@ -156,7 +202,7 @@ yargs(process.argv.slice(2))
     'run script or a tool',
     yargs => yargs.parserConfiguration({ 'unknown-options-as-args': true }),
     ({ command, _ }) => {
-      const packageJson = JSON.parse(fs.readFileSync(join(getPackageDir(), 'package.json'), 'utf-8'));
+      const packageJson = getPackageJson();
 
       if (packageJson.scripts?.[command]) {
         execCommand(packageJson.scripts?.[command], _.map(String));
@@ -174,4 +220,15 @@ function getPackageDir () {
     process.exit(-1);
   }
   return packageDir;
+}
+
+function getPackageJson () {
+  return JSON.parse(fs.readFileSync(join(getPackageDir(), 'package.json'), 'utf-8'));
+}
+
+function getPackage () {
+  return {
+    packageDir: getPackageDir(),
+    packageJson: getPackageJson()
+  };
 }

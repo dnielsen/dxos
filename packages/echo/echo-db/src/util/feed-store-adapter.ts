@@ -5,6 +5,7 @@
 import assert from 'assert';
 import { Feed } from 'hypercore';
 
+import { patchBufferCodec } from '@dxos/codec-protobuf';
 import { createId, PublicKey } from '@dxos/crypto';
 import {
   codec, createIterator, FeedKey, FeedStoreIterator, MessageSelector, PartyKey, Timeframe
@@ -19,7 +20,7 @@ import { Storage } from '@dxos/random-access-multi-storage';
 // TODO(burdon): Temporary: will replace FeedStore.
 export class FeedStoreAdapter {
   static create (storage: Storage) {
-    return new FeedStoreAdapter(new FeedStore(storage, { feedOptions: { valueEncoding: codec } }));
+    return new FeedStoreAdapter(new FeedStore(storage, { feedOptions: { valueEncoding: patchBufferCodec(codec) } }));
   }
 
   constructor (

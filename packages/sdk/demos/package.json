@@ -1,6 +1,6 @@
 {
   "name": "@dxos/demos",
-  "version": "2.10.1-beta",
+  "version": "2.10.10",
   "private": true,
   "description": "ECHO database demo app.",
   "homepage": "https://github.com/dxos/protocols/tree/master/packages/echo",
@@ -13,13 +13,15 @@
   },
   "license": "AGPL-3.0",
   "scripts": {
-    "build": "tsc --noEmit && pnpm run lint && pnpm run test 2>&1 && true",
+    "build": "tsc --noEmit",
+    "build:test": "pnpm run build && pnpm run lint && pnpm run test 2>&1",
     "build-storybook": "build-storybook --quiet",
     "build-storybook-docs": "build-storybook --quiet --docs",
     "depcheck": "npx depcheck --specials=bin,babel,eslint,lint-staged,jest",
     "coverage": "jest --coverage --verbose  --rootDir=./src --passWithNoTests",
     "lint": "eslint --format codeframe './{src,test,stories}/**/*.{ts,tsx}'",
     "test": "jest --rootDir=./src --verbose --passWithNoTests",
+    "test:playwright": "jest --rootDir ./playwright --runInBand",
     "storybook": "start-storybook -s ./stories/static -p 9001 -c .storybook --ci",
     "storybook-docs": "start-storybook --docs --no-manager-cache",
     "prepublishOnly": "npm run test && npm run build",
@@ -57,6 +59,7 @@
     "@dxos/util": "workspace:*",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/styles": "^4.11.4",
     "@types/debug": "^4.1.1",
     "@types/end-of-stream": "^1.4.0",
     "@types/lodash": "^4.14.159",
@@ -68,12 +71,13 @@
     "immutability-helper": "^3.0.2",
     "level-js": "^5.0.2",
     "lodash.merge": "^4.6.2",
+    "mobile-detect": "~1.4.5",
+    "playwright": "^1.7.0",
     "random-access-memory": "~3.1.2",
     "react-resize-aware": "^3.0.0",
     "source-map-support": "^0.5.12",
     "stream-buffers": "^3.0.2",
-    "mobile-detect": "~1.4.5",
-    "@material-ui/styles": "^4.11.4"
+    "@dxos/protocol": "workspace:*"
   },
   "devDependencies": {
     "@babel/core": "~7.13.15",
@@ -81,11 +85,11 @@
     "@dxos/debug": "workspace:*",
     "@dxos/eslint-plugin": "~1.0.10",
     "@storybook/addon-essentials": "^6.2.9",
-    "@storybook/addon-knobs": "^6.2.9",
     "@storybook/addon-links": "^6.2.9",
     "@storybook/react": "^6.2.9",
     "@types/faker": "~5.5.1",
     "@types/jest": "^26.0.7",
+    "@types/node": "^14.0.9",
     "@types/react": "^16.14.0",
     "babel-loader": "8.1.0",
     "babel-plugin-add-module-exports": "^1.0.4",
@@ -103,7 +107,10 @@
     "ts-jest": "^26.5.6",
     "ts-loader": "~8.1.0",
     "typescript": "^4.2.4",
-    "webpack": "4.44.2"
+    "webpack": "4.44.2",
+    "pump": "^3.0.0",
+    "@types/pump": "^1.1.0",
+    "@dxos/async": "workspace:*"
   },
   "publishConfig": {
     "access": "restricted"

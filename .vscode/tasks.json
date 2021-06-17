@@ -1,0 +1,31 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Rush build (light)",
+			"group": "build",
+			"type": "shell",
+			"command": "rush build",
+			"problemMatcher": []
+		},
+		{
+			"label": "Rush build to current package (light)",
+			"group": "build",
+			"type": "shell",
+			"command": "rush build --to-except $(cut -d '=' -f 2 <<< $(npm run env | grep 'npm_package_name'))",
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Run demos",
+			"type": "shell",
+			"command": "rushx storybook",
+			"options": {
+				"cwd": "packages/sdk/demos"
+			},
+			"problemMatcher": []
+		}
+	]
+}

@@ -1,6 +1,6 @@
 {
   "name": "@dxos/echo-db",
-  "version": "2.10.8",
+  "version": "2.10.10",
   "description": "ECHO database.",
   "homepage": "https://github.com/dxos/protocols/tree/master/packages/echo",
   "bugs": {
@@ -19,6 +19,7 @@
   ],
   "scripts": {
     "build": "toolchain build",
+    "build:test": "toolchain build:test",
     "lint": "toolchain lint",
     "test": "toolchain test"
   },
@@ -53,14 +54,19 @@
     "random-access-memory": "~3.1.2"
   },
   "devDependencies": {
-    "@dxos/toolchain-node-library": "workspace:*",
     "@dxos/testutils": "workspace:*",
+    "@dxos/toolchain-node-library": "workspace:*",
     "@types/jest": "^26.0.7",
     "@types/memdown": "^3.0.0",
+    "@types/mocha": "~8.2.2",
+    "expect": "~27.0.2",
     "lodash": "4.17.21",
     "memdown": "^5.1.0",
     "tempy": "~1.0.1",
     "ws": "^7.4.4"
+  },
+  "toolchain": {
+    "testingFramework": "mocha"
   },
   "publishConfig": {
     "access": "restricted"
