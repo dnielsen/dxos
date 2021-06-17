@@ -6,7 +6,7 @@
 
 import assert from 'assert';
 
-import { KeyValue, ObjectMutation, ObjectMutationSet, Object, Value } from './proto';
+import { KeyValue, ObjectMutation, ObjectMutationSet, ObjectRecord, Value } from './proto';
 
 /**
  * @typedef {Object} Value
@@ -133,7 +133,7 @@ export class ValueUtil {
   }
 
   // TODO(burdon): Refactor.
-  static getObjectValue (value: Object) {
+  static getObjectValue (value: ObjectRecord) {
     const nestedObject = {};
     const { properties } = value!;
     (properties ?? []).forEach(({ key, value }) => ValueUtil.applyValue(nestedObject, key!, value!));
