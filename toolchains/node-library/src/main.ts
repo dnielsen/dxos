@@ -66,6 +66,7 @@ function execJest (pkgDir: string, additionalArgs: string[] = []) {
 
 function execEsbuild (pkgDir: string, pkgJson: any) {
   const indexFile = join(pkgDir, 'src/index.ts');
+  console.log(indexFile)
   if (fs.existsSync(indexFile)) {
     esbuild.buildSync({
       entryPoints: [indexFile],
@@ -112,6 +113,9 @@ function execBuild () {
 
   console.log(chalk.bold`\ntypescript`);
   execTool('tsc');
+
+  console.log(chalk.bold`\nesbuild`);
+  execEsbuild(packageDir, packageJson);
 }
 
 function execTest (additionalArgs?: string[]) {
@@ -149,35 +153,10 @@ yargs(process.argv.slice(2))
     (args) => {
       const before = Date.now();
 
-      const { packageDir, packageJson } = getPackage();
-
       execBuild();
 
       console.log(chalk.bold`\neslint`);
       execLint();
-
-      if (packageJson.jest) {
-        process.stderr.write(chalk`{yellow warn}: jest config in package.json is ignored\n`);
-      }
-
-      if (packageJson.eslintConfig) {
-        process.stderr.write(chalk`{yellow warn}: eslint config in package.json is ignored\n`);
-      }
-
-      const protoFiles = glob('src/proto/**/*.proto', { cwd: packageDir });
-      if (protoFiles.length > 0) {
-        console.log(chalk.bold`\nprotobuf`);
-        const substitutions = fs.existsSync(join(packageDir, 'src/proto/substitutions.ts')) ? join(packageDir, 'src/proto/substitutions.ts') : undefined;
-
-        execTool('build-protobuf', [
-          '-o',
-          join(packageDir, 'src/proto/gen'),
-          ...(substitutions ? ['-s', substitutions] : []),
-          ...protoFiles
-        ]);
-      }
-      console.log(chalk.bold`\nesbuild`);
-      execEsbuild(packageDir, packageJson);
 
       execTest(['globalSetup', 'globalTeardown'].filter(arg => !!args[arg]).map(arg => `--${arg}=${args[arg]}`));
 
