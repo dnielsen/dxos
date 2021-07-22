@@ -2,7 +2,7 @@
 // Copyright 2019 DXOS.org
 //
 
-/* eslint-disable jest/no-done-callback */
+/* eslint-disable jest/no-test-callback */
 
 import eos from 'end-of-stream-promise';
 import hypercore from 'hypercore';
