@@ -4,6 +4,7 @@ module.exports = {
     'import/export': 'off',
     'no-extra-parens': 'off',
     '@typescript-eslint/no-extra-parens': ['off'],
+    'no-use-before-define': 'off',
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-unused-vars': [
       'error',
