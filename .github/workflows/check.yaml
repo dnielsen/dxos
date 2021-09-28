@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.0]
+        temp: [1,2,3,4,5]
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -40,6 +41,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.0]
+        temp: [1,2,3,4,5]
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -82,6 +84,7 @@ jobs:
     strategy:
       matrix:
         node-version: [16.0]
+        temp: [1,2,3,4,5]
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
