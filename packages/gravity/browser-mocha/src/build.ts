@@ -26,7 +26,9 @@ export async function buildTests (files: string[], opts: BuildTestsOpts) {
     import { mocha } from 'mocha';
 
     async function run() {
+      console.log('getEnv started...')
       const context = await window.browserMocha__getEnv();
+      console.log('getEnv ended...')
 
       window.browserMocha = { context };
 
