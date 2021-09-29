@@ -34,6 +34,4 @@ jobs:
           echo "::endgroup::"
 
           # Build with tests
-          node common/scripts/github-actions-folding.js node common/scripts/install-run-rush.js build --to @dxos/browser-tests
-          cd packages/gravity/browser-tests
-          node ../../../common/scripts/github-actions-folding.js node ../../../common/scripts/install-run-rushx.js build:test
+          node common/scripts/github-actions-folding.js node common/scripts/install-run-rush.js build:test --verbose --to @dxos/browser-tests
