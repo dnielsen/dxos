@@ -21,7 +21,7 @@ export async function buildTests (files: string[], opts: BuildTestsOpts) {
 
     ${opts.debug ? 'debugger;' : ''}
     
-    debug.enable('${process.env.DEBUG}');
+    debug.enable('mocha*');
 
     import { mocha } from 'mocha';
 
