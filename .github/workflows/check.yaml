@@ -36,4 +36,4 @@ jobs:
           # Build with tests
           node common/scripts/github-actions-folding.js node common/scripts/install-run-rush.js build --to @dxos/browser-tests
           cd packages/gravity/browser-tests
-          node common/scripts/github-actions-folding.js node common/scripts/install-run-rushx.js build:test --verbose
+          node ../../../common/scripts/github-actions-folding.js node ../../../common/scripts/install-run-rushx.js build:test
