@@ -36,16 +36,32 @@ export class CID {
     return Buffer.from(this.value).equals(Buffer.from(CID.from(other).value));
   }
 
+  /**
+   * Encode to base-58.
+   */
   toB58String () {
     return toB58String(this.value);
   }
 
+  /**
+   * Called when the class is stringified.
+   */
   toString () {
     return this.toB58String();
   }
 
+  /**
+   * Called when the class is printed using `console.log`.
+   */
   [inspect.custom] () {
     return this.toB58String();
+  }
+
+  /**
+   * Called when the class is converted to JSON, for example with `JSON.stringify`.
+   */
+  toJSON () {
+    return this.toString();
   }
 }
 
