@@ -1,7 +1,6 @@
 ---
 title: Creating data
 sidebar_title: 4. Creating data
-description: 
 ---
 
 So far, we have been preparing our app to be able to interact with DXOS Stack, but we haven't added any fun logic yet. 

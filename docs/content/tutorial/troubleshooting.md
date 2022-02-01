@@ -1,7 +1,6 @@
 ---
 title: Troubleshooting
 sidebar_title: 9. Troubleshooting
-description: Troubleshooting
 ---
 
 ## Issues with storage

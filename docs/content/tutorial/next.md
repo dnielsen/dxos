@@ -1,7 +1,6 @@
 ---
 title: Next steps
 sidebar_title: 8. Next Steps
-description:
 ---
 
 Congratulations! 🎉 You've completed the DXOS full-stack tutorial.

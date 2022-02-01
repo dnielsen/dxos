@@ -1,27 +1,41 @@
-# Protocols Docs
+# Website
 
-## Testing
+This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.
 
-To spin up this repo documentation on your local environment:
+### Installation
 
-```bash
+```
 $ yarn
-$ yarn dev
 ```
 
-## Troubleshooting
+### Local Development
 
-- Edit `node_modules/gatsby-theme-apollo-docs/node-config.js` to debug.
-- There must be an `content/index.md[x]` file.
-- There must be AT LEAST one `.md` AND one `.mdx` file.
-
-## Deploy
-
-To deploy the docs into the publish URL, you will need to update your `production` local branch and then push it, this will trigger Netlify CI and automatically publish it.
-
-```bash
-$ git fetch
-$ git checkout production
-$ git rebase origin/main
-$ git push origin production
 ```
+$ yarn start
+```
+
+This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+
+### Build
+
+```
+$ yarn build
+```
+
+This command generates static content into the `build` directory and can be served using any static contents hosting service.
+
+### Deployment
+
+Using SSH:
+
+```
+$ USE_SSH=true yarn deploy
+```
+
+Not using SSH:
+
+```
+$ GIT_USER=<Your GitHub username> yarn deploy
+```
+
+If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
