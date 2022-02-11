@@ -11,26 +11,28 @@ import {
   MentionAtomPopupComponent,
   MentionAtomState,
   Remirror,
-  useRemirror
+  useRemirror,
+  ThemeProvider
 } from '@remirror/react';
+import { AllStyledComponent } from '@remirror/styles/emotion';
 
 const extraAttributes: IdentifierSchemaAttributes[] = [
-  { identifiers: ['mention', 'emoji'], attributes: { role: { default: 'presentation' } } },
+  { identifiers: ['mention'], attributes: { role: { default: 'presentation' } } },
   { identifiers: ['mention'], attributes: { href: { default: null } } },
 ];
 
-export interface MentionEditorProps extends Pick<MentionComponentProps, 'users' | 'tags'> {
+export interface MentionEditorProps extends Pick<MentionComponentProps, 'commands' | 'tags'> {
   placeholder?: string;
 }
 
 interface MentionComponentProps<
   UserData extends MentionAtomNodeAttributes = MentionAtomNodeAttributes,
 > {
-  users?: UserData[];
+  commands?: UserData[];
   tags?: string[];
 }
 
-function MentionComponent({ users, tags }: MentionComponentProps) {
+function MentionComponent({ commands, tags }: MentionComponentProps) {
   const [mentionState, setMentionState] = useState<MentionAtomState | null>();
   const tagItems = useMemo(
     () => (tags ?? []).map((tag) => ({ id: tag, label: `#${tag}` })),
@@ -41,7 +43,7 @@ function MentionComponent({ users, tags }: MentionComponentProps) {
       return [];
     }
 
-    const allItems = mentionState.name === 'at' ? users : tagItems;
+    const allItems = mentionState.name === 'dot' ? commands : tagItems;
 
     if (!allItems) {
       return [];
@@ -49,7 +51,7 @@ function MentionComponent({ users, tags }: MentionComponentProps) {
 
     const query = mentionState.query.full.toLowerCase() ?? '';
     return allItems.filter((item) => item.label.toLowerCase().includes(query)).sort();
-  }, [mentionState, users, tagItems]);
+  }, [mentionState, commands, tagItems]);
 
   return <MentionAtomPopupComponent onChange={setMentionState} items={items} />;
 }
@@ -60,7 +62,7 @@ export const MentionEditor: FC<MentionEditorProps> = ({ placeholder, ...props })
       new PlaceholderExtension({ placeholder }),
       new MentionAtomExtension({
         matchers: [
-          { name: 'at', char: '@', appendText: ' ' },
+          { name: 'dot', char: '.', appendText: ' ' },
           { name: 'tag', char: '#', appendText: ' ' },
         ],
       }),
@@ -69,14 +71,16 @@ export const MentionEditor: FC<MentionEditorProps> = ({ placeholder, ...props })
     [placeholder],
   );
 
-  const { children } = props;
   const { manager } = useRemirror({ extensions, extraAttributes });
 
   return (
-    <Remirror manager={manager}>
-      <EditorComponent />
-      <MentionComponent {...props} />
-      {children}
-    </Remirror>
+    <AllStyledComponent>
+      <ThemeProvider>
+        <Remirror manager={manager}>
+          <EditorComponent />
+          <MentionComponent {...props} />
+        </Remirror>
+      </ThemeProvider>
+    </AllStyledComponent>
   );
 };
