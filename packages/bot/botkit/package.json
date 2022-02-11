@@ -33,7 +33,7 @@
     "@dxos/rpc": "workspace:*",
     "debug": "^4.3.3",
     "download": "^8.0.0",
-    "esbuild": "^0.11.23"
+    "esbuild": "^0.12.25"
   },
   "devDependencies": {
     "@dxos/async": "workspace:*",
