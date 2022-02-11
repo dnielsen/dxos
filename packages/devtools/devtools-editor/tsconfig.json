@@ -2,11 +2,12 @@
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
     "outDir": "dist",
-    "jsx": "react",
-    "lib": [
-      "DOM",
-      "es2019"
-    ]
+    "moduleResolution": "node",
+    "module": "ESNext",
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "react-jsxdev",
+    "types": ["node", "jest"],
   },
   "include": [
     "src",
