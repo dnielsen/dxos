@@ -67,7 +67,7 @@ importers:
       assert: ^2.0.0
       debug: ^4.3.3
       download: ^8.0.0
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       expect: ~27.0.2
       tail: ~2.2.4
       ts-node: ^9.1.1
@@ -86,7 +86,7 @@ importers:
       '@dxos/rpc': link:../../common/rpc
       debug: 4.3.3
       download: 8.0.0
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       tail: 2.2.4
     devDependencies:
       '@dxos/async': link:../../common/async
@@ -589,7 +589,7 @@ importers:
       chance: ^1.1.6
       debug: ^4.3.3
       download: ^8.0.0
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       expect: ~27.0.2
       fs-extra: ^8.1.0
       js-yaml: ^3.13.1
@@ -628,7 +628,7 @@ importers:
       chance: 1.1.8
       debug: 4.3.3
       download: 8.0.0
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       fs-extra: 8.1.0
       js-yaml: 3.14.1
       lodash.defaults: 4.2.0
@@ -774,45 +774,6 @@ importers:
       '@types/react-dom': 17.0.11
       typescript: 4.5.3
 
-  ../../packages/devtools/devtools-editor:
-    specifiers:
-      '@babel/core': ~7.13.15
-      '@dxos/esbuild-plugins': workspace:*
-      '@dxos/esbuild-server': ~1.7.5
-      '@dxos/toolchain-node-library': workspace:*
-      '@emotion/css': ^11.7.1
-      '@types/prosemirror-schema-basic': ^1.0.2
-      '@types/prosemirror-state': ^1.2.8
-      '@types/prosemirror-view': ^1.23.1
-      '@types/react': ^17.0.24
-      prosemirror-model: ~1.16.1
-      prosemirror-schema-basic: ~1.1.2
-      prosemirror-state: ~1.3.4
-      prosemirror-suggest: ~1.0.7
-      prosemirror-view: ~1.23.6
-      react: ^17.0.2
-      react-dom: ^17.0.2
-      typescript: ^4.5.2
-    dependencies:
-      prosemirror-model: 1.16.1
-      prosemirror-schema-basic: 1.1.2
-      prosemirror-state: 1.3.4
-      prosemirror-suggest: 1.0.7_d24d613a1b0a394920b212d0b441d3b8
-      prosemirror-view: 1.23.6
-    devDependencies:
-      '@babel/core': 7.13.16
-      '@dxos/esbuild-plugins': link:../../../toolchains/esbuild-plugins
-      '@dxos/esbuild-server': 1.7.5_@types+react@17.0.37
-      '@dxos/toolchain-node-library': link:../../../toolchains/toolchain-node-library
-      '@emotion/css': 11.7.1_@babel+core@7.13.16
-      '@types/prosemirror-schema-basic': 1.0.2
-      '@types/prosemirror-state': 1.2.8
-      '@types/prosemirror-view': 1.23.1
-      '@types/react': 17.0.37
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      typescript: 4.5.3
-
   ../../packages/devtools/devtools-extension:
     specifiers:
       '@babel/core': ~7.13.15
@@ -848,7 +809,7 @@ importers:
       crx: ^5.0.1
       crx-bridge: ^2.1.0
       download: ^8.0.0
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       express: ~4.17.1
       moment: ^2.24.0
       react: ^17.0.2
@@ -898,7 +859,7 @@ importers:
       copy: 0.3.2
       crx: 5.0.1
       download: 8.0.0
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       express: 4.17.1
       rmdir: 1.2.0
       safe-compare: 1.1.4
@@ -974,6 +935,33 @@ importers:
       ts-loader: 8.1.0_typescript@4.5.3+webpack@4.44.2
       typescript: 4.5.3
       webpack: 4.44.2
+
+  ../../packages/devtools/devtools-monaco:
+    specifiers:
+      '@dxos/config': workspace:*
+      '@dxos/esbuild-plugins': workspace:*
+      '@dxos/esbuild-server': ~1.7.5
+      '@dxos/frame-dev-server': ~2.14.8
+      '@dxos/react-client': workspace:*
+      '@types/react': ^17.0.24
+      '@types/react-dom': ^17.0.9
+      monaco-editor: ^0.31.1
+      react: ^17.0.2
+      react-dom: ^17.0.2
+      react-monaco-editor: ~0.47.0
+    dependencies:
+      '@dxos/config': link:../../sdk/config
+      '@dxos/frame-dev-server': 2.14.8_react-dom@17.0.2+react@17.0.2
+      '@dxos/react-client': link:../../sdk/react-client
+      '@types/react': 17.0.37
+      '@types/react-dom': 17.0.11
+      monaco-editor: 0.31.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-monaco-editor: 0.47.0_f005448b82d681ae018dd25fe974ac78
+    devDependencies:
+      '@dxos/esbuild-plugins': link:../../../toolchains/esbuild-plugins
+      '@dxos/esbuild-server': 1.7.5_@types+react@17.0.37
 
   ../../packages/echo/echo-db:
     specifiers:
@@ -1316,7 +1304,7 @@ importers:
       '@types/uuid': ~8.3.3
       '@types/yargs': ~16.0.1
       chalk: ^4.1.0
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       glob: ~7.1.6
       pkg-up: ^3.1.0
       playwright: ^1.7.0
@@ -1327,7 +1315,7 @@ importers:
       '@dxos/debug': link:../../common/debug
       '@dxos/esbuild-plugins': link:../../../toolchains/esbuild-plugins
       chalk: 4.1.2
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       glob: 7.1.7
       pkg-up: 3.1.0
       playwright: 1.17.1
@@ -1397,7 +1385,7 @@ importers:
       debug: ^4.3.3
       dotenv: ^8.2.0
       download: ^8.0.0
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       expect: ~27.0.2
       fs-extra: ^8.1.0
       js-yaml: ^3.13.1
@@ -1429,7 +1417,7 @@ importers:
       debug: 4.3.3
       dotenv: 8.6.0
       download: 8.0.0
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       fs-extra: 8.1.0
       js-yaml: 3.14.1
       read-pkg-up: 7.0.1
@@ -2075,7 +2063,7 @@ importers:
       '@types/node': ^14.0.9
       boolean: ^3.0.1
       debug: ^4.3.3
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       expect: ~27.0.2
       js-yaml: ^3.13.1
       lodash.defaultsdeep: ^4.6.1
@@ -2104,7 +2092,7 @@ importers:
       '@types/lodash.set': 4.3.6
       '@types/mocha': 8.2.3
       '@types/node': 14.18.0
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       expect: 27.0.6
       webpack: 4.44.2
 
@@ -2559,7 +2547,7 @@ importers:
       '@types/webpack-env': ^1.16.0
       chalk: ^4.1.0
       copy: ~0.3.2
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       expect: ~27.0.2
       faker: ^5.1.0
       mocha: ~8.4.0
@@ -2611,7 +2599,7 @@ importers:
       '@types/webpack-env': 1.16.3
       chalk: 4.1.2
       copy: 0.3.2
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       expect: 27.0.6
       faker: 5.5.3
       playwright: 1.17.1
@@ -2662,7 +2650,7 @@ importers:
       crypto-browserify: ^3.12.0
       debug: ^4.3.3
       domain-browser: ^4.22.0
-      esbuild: ^0.11.23
+      esbuild: ^0.12.25
       events: ~3.3.0
       path-browserify: ~1.0.1
       readable-stream: ^3.6.0
@@ -2673,7 +2661,7 @@ importers:
       crypto-browserify: 3.12.0
       debug: 4.3.3
       domain-browser: 4.22.0
-      esbuild: 0.11.23
+      esbuild: 0.12.29
       events: 3.3.0
       path-browserify: 1.0.1
       readable-stream: 3.6.0
@@ -2697,7 +2685,7 @@ importers:
       eslint: ^7.12.1
       glob: ~7.1.6
       jest: ^26.6.3
-      jsdom: ~18.0.1
+      jsdom: ^17.0.0
       jsdom-global: ~3.0.2
       mocha: ~8.4.0
       pkg-dir: ~5.0.0
@@ -2716,8 +2704,8 @@ importers:
       eslint: 7.32.0
       glob: 7.1.7
       jest: 26.6.3_ts-node@9.1.1
-      jsdom: 18.0.1
-      jsdom-global: 3.0.2_jsdom@18.0.1
+      jsdom: 17.0.0
+      jsdom-global: 3.0.2_jsdom@17.0.0
       mocha: 8.4.0
       pkg-dir: 5.0.0
       ts-jest: 26.5.6_jest@26.6.3+typescript@4.5.3
@@ -5210,6 +5198,14 @@ packages:
       split: 0.3.3
     dev: true
 
+  /@dxos/async/2.22.0:
+    resolution: {integrity: sha512-YOMJseqlscZG5gs3egRGTKxpyFA9M8gjZdT5ltOqKcZJcREG6idK7GbJPNvAqmakIKyH7nLTD61KcyAiJ/b8hg==}
+    dependencies:
+      '@dxos/debug': 2.22.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
   /@dxos/benchmark-suite/1.0.0-beta.3:
     resolution: {integrity: sha512-rpHryqIC1sOSWcGLyqnhJdLWDQ2jtidm7K8G/LQr1Xp3ibHO7cRg0w9v1RnYUDgyCtgWh4AWyec5lazNMCpAzw==}
     dependencies:
@@ -5218,6 +5214,36 @@ packages:
       pretty-hrtime: 1.0.3
       source-map-support: 0.5.21
     dev: true
+
+  /@dxos/bot-factory-client/2.22.0:
+    resolution: {integrity: sha512-FC5Lif+FjRNuTOXsE+mm9uhJmEbOmuU0dVxDmBFKE47O868EUfwNEfvGEquDQlAO6ASAks01Jy1WcDQQNDB5kA==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/credentials': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/echo-db': 2.22.0
+      '@dxos/network-manager': 2.22.0
+      '@dxos/proto': 2.22.0
+      '@dxos/protocol-plugin-rpc': 2.22.0
+      '@dxos/rpc': 2.22.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@dxos/broadcast/2.22.0:
+    resolution: {integrity: sha512-el0rP3+r3k3qefw/SWtIRa+O8TGjUP4qFyXaItGtfNj5KBdM8zB9UOhUx0VwXMR+UMUenULMtuk4vRuhQGbSOQ==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/crypto': 2.22.0
+      debug: 4.3.3
+      tiny-lru: 7.0.6
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@dxos/browser-runner/1.0.0-beta.13:
     resolution: {integrity: sha512-9m1Ftf+1RsQvf9JIDOZTJouHyT3X4kdqn1/tDSL9NrvOgLFjp/cA/vzyMcPAZTJCBkcF+xIkR/Peu2/jhwy0gQ==}
@@ -5245,6 +5271,166 @@ packages:
       - webpack-cli
       - webpack-command
     dev: true
+
+  /@dxos/client/2.22.0:
+    resolution: {integrity: sha512-tzmGXjdj2OWATue0eSJQDsCqZ+orpMdsV6Yy5awYejJkP59pzuc8PyNjYS0rqC+LpI10O0aAB8fStKXTCgkF/w==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/config': 2.22.0
+      '@dxos/credentials': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/echo-db': 2.22.0
+      '@dxos/echo-protocol': 2.22.0
+      '@dxos/feed-store': 2.22.0
+      '@dxos/model-factory': 2.22.0
+      '@dxos/network-manager': 2.22.0
+      '@dxos/object-model': 2.22.0
+      '@dxos/proto': 2.22.0
+      '@dxos/rpc': 2.22.0
+      '@dxos/util': 2.22.0
+      '@wirelineio/registry-client': 1.1.0-beta.3
+      abstract-leveldown: 7.0.0
+      assert: 2.0.0
+      base-x: 3.0.9
+      debug: 4.3.3
+      del: 5.1.0
+      jsondown: github.com/dxos/jsondown/0bec0436f00973e7f2528115c72a5ab96dc45576_abstract-leveldown@7.0.0
+      level-js: 5.0.2
+      lodash.defaultsdeep: 4.6.1
+      memdown: 5.1.0
+      readable-stream: 3.6.0
+      uuid: 8.3.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@dxos/codec-protobuf/2.22.0:
+    resolution: {integrity: sha512-JTSghYQqTv/yzJT5rq9kYwUcs42+nAmA2UiNhoohJkEi3HsJ6vIRIUn5PqBZoLaJpZ5l6djhI881JsMO4qUUXg==}
+    dependencies:
+      assert: 2.0.0
+      debug: 4.3.3
+      lodash.merge: 4.6.2
+      protobufjs: 6.11.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/config/2.22.0:
+    resolution: {integrity: sha512-5kasshhkBSdCbLEU1xKOJ3eSVf3JfccbV8usdImiBpxvmgYeJ/9Y7X6/FkY/uTSBUtnDhUf0Khv6vdvIbgBfyw==}
+    dependencies:
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/proto': 2.22.0
+      boolean: 3.1.4
+      debug: 4.3.3
+      js-yaml: 3.14.1
+      lodash.defaultsdeep: 4.6.1
+      lodash.get: 4.4.2
+      lodash.set: 4.3.2
+      node-fetch: 2.6.6
+      protobufjs: 6.11.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/credentials/2.22.0:
+    resolution: {integrity: sha512-h2nf0ueGJWkh+y0zWhOZCeD5K8larCvfh/bcjqW3Qh1qOfrwA5Y99pR9pMi+YYWgQ/0yqlT1FpTdhJ96KC3Kgg==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/feed-store': 2.22.0
+      '@dxos/proto': 2.22.0
+      '@dxos/protocol': 2.22.0
+      '@dxos/util': 2.22.0
+      buffer-json-encoding: 1.0.2
+      debug: 4.3.3
+      encoding-down: 6.3.0
+      end-of-stream: 1.4.4
+      json-stable-stringify: 1.0.1
+      leveldown: 5.6.0
+      levelup: 4.4.0
+      lodash.matches: 4.6.0
+      memdown: 5.1.0
+      moment: 2.29.1
+      performance-now: 2.1.0
+      pump: 3.0.0
+      stream-to-array: 2.3.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/crypto/2.22.0:
+    resolution: {integrity: sha512-HWLJhc+ePBShvCuslyW5zDaqMaY+czNijqEEJI5eiYBblNJbt+onKZhoExpd2JTTFgA1XImDI64oBSPjdTJz/g==}
+    dependencies:
+      bip39: 3.0.4
+      crypto-js: 3.3.0
+      hypercore-crypto: 2.3.2
+    dev: false
+
+  /@dxos/debug/2.22.0:
+    resolution: {integrity: sha512-23ZZrSj3ct3daTuvW3cwMUiiF4actRt9CZQbACnh0isQ7RSzKsLrWbUnmrRsCIYfIHco0un3aetgNOjytGUxbQ==}
+    dependencies:
+      '@types/node': 14.18.0
+      debug: 4.3.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/echo-db/2.22.0:
+    resolution: {integrity: sha512-gdaQ+608P0pVNwm5ygNHDrDSltdOTNznYPrsFroJJ1F10fWG8tQJa5PSYf+q+rf465uhcGKtRBLzml/aqRXnew==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/credentials': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/echo-protocol': 2.22.0
+      '@dxos/feed-store': 2.22.0
+      '@dxos/model-factory': 2.22.0
+      '@dxos/network-manager': 2.22.0
+      '@dxos/object-model': 2.22.0
+      '@dxos/proto': 2.22.0
+      '@dxos/protocol': 2.22.0
+      '@dxos/protocol-plugin-presence': 2.22.0
+      '@dxos/protocol-plugin-replicator': 2.22.0
+      '@dxos/random-access-multi-storage': 2.22.0
+      '@dxos/util': 2.22.0
+      '@types/debug': 4.1.7
+      '@types/json-stable-stringify': 1.0.33
+      '@types/lodash': 4.14.178
+      '@types/node': 14.18.0
+      buffer-json-encoding: 1.0.2
+      debug: 4.3.3
+      json-stable-stringify: 1.0.1
+      pify: 5.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@dxos/echo-protocol/2.22.0:
+    resolution: {integrity: sha512-K+Wrn2DhsnHlJwAm6WNkvDtpLEvVBBRK4xfMnXYzr8m7lmcKmA8QnXb7HFBPK2jjfcZvNuk07QYao3AZv7zUXw==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/credentials': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/feed-store': 2.22.0
+      '@dxos/proto': 2.22.0
+      '@dxos/util': 2.22.0
+      debug: 4.3.3
+      pify: 5.0.0
+      readable-stream: 3.6.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /@dxos/esbuild-server/1.7.5:
     resolution: {integrity: sha512-ieAR5PFvbGFeVj+LOuX4ZVMkH9Bv2tjatX2KUVySvh31qjCSYTVSIGpDZ9jJxyuUQqQG/sXpJdFUEbam5V5zgA==}
@@ -5322,6 +5508,47 @@ packages:
       - jest
       - supports-color
 
+  /@dxos/feed-store/2.22.0:
+    resolution: {integrity: sha512-pQHZOaJ/LcWHSTFEnOXoR1zaKNEtgN4DtYrbIBlCQU3cpb9SifrgL1cuRCZtE/KIwJM4vLEgPNFlV/EE4ksO9g==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/util': 2.22.0
+      buffer-json-encoding: 1.0.2
+      debug: 4.3.3
+      end-of-stream: 1.4.4
+      from2: 2.3.0
+      hypercore: 9.12.0
+      pify: 5.0.0
+      pump: 3.0.0
+      through2: 3.0.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/frame-dev-server/2.14.8_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-kPAFOrqXj8sxyr6cOOTViD3Sg1au8LUk0dpgsEn6Fd7eQp45d3qeSdNMX5eMIhcyU3mDIWfMvc7rM8mJLtxu6g==}
+    hasBin: true
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      '@dxos/client': 2.22.0
+      '@dxos/echo-db': 2.22.0
+      '@dxos/react-client': 2.22.0_react@17.0.2
+      '@dxos/react-framekit': 2.14.8_13ce05b28a9908d74d2d5b7d8120ac5c
+      '@dxos/react-registry-client': 2.22.0_react-dom@17.0.2+react@17.0.2
+      '@dxos/registry-client': 2.22.0
+      js-yaml: 4.1.0
+      protobufjs: 6.11.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      serve-handler: 6.1.3
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
   /@dxos/gem-core/1.0.0-beta.36_fced322086cd04afb0b6feec9e866920:
     resolution: {integrity: sha512-UlPrDNIgQrHjQbAJuHchjPzbOS53UpZ+qAoDrT5mTD4OdJ8S/Ki8WsfivDvasDQ9d+Kvs4tV5mEJxyWVjBEU7Q==}
     peerDependencies:
@@ -5365,6 +5592,258 @@ packages:
       react-hotkeys: 2.0.0_react@17.0.2
       react-resize-aware: 3.1.1_react@17.0.2
       throttle-debounce: 3.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/model-factory/2.22.0:
+    resolution: {integrity: sha512-UjwxLlGlK5v4b1puXU1kMNzbeDTi4C5AM6OintFehrFdIAuc3yeRvDGhPm0OWE0p334torDWfPQqmPPy5dYc0g==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/echo-protocol': 2.22.0
+      '@dxos/feed-store': 2.22.0
+      '@types/debug': 4.1.7
+      '@types/node': 14.18.0
+      debug: 4.3.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/network-manager/2.22.0:
+    resolution: {integrity: sha512-fXKEE4elN330ooHyVvbCboTd0kw3ixow3E6MbrBtqBPh1cHWyPDZ1OlG7jg2Q0c3F6lvztkm+lW+dERLUhmcWQ==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/credentials': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/protocol': 2.22.0
+      '@dxos/protocol-plugin-presence': 2.22.0
+      '@dxos/util': 2.22.0
+      '@types/simple-peer': 9.11.3
+      '@types/ws': 7.4.7
+      assert: 2.0.0
+      debug: 4.3.3
+      isomorphic-ws: 4.0.1_ws@7.5.6
+      nanomessage-rpc: 3.2.0
+      simple-peer: 9.11.0
+      wrtc: 0.4.7
+      ws: 7.5.6
+      xor-distance: 2.0.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@dxos/object-model/2.22.0:
+    resolution: {integrity: sha512-HIe5jqMGwwjDvaD0L2aR6wWkzvCRE85Fhc4L8mqlVvDYR59YsmPlh3xz/QgHp6Sdapf0UqjGgdXmcX1mpC/ebw==}
+    dependencies:
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/echo-protocol': 2.22.0
+      '@dxos/model-factory': 2.22.0
+      '@dxos/util': 2.22.0
+      '@types/debug': 4.1.7
+      '@types/lodash': 4.14.178
+      '@types/node': 14.18.0
+      debug: 4.3.3
+      lodash: 4.17.21
+      minisearch: 3.2.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/proto/2.22.0:
+    resolution: {integrity: sha512-ZIzeOfNz8r/JqskWvgSKea4MlC09YZiwINGxPhKl2rsbEuOAKqoypmMtAf7usAF02yf2DUVTfBwRglUlY6phng==}
+    dependencies:
+      '@dxos/codec-protobuf': 2.22.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/protocol-plugin-presence/2.22.0:
+    resolution: {integrity: sha512-1w2c3bjL4+US+O2Cxw4XKq9UcYIoH8HDtO2HCchtefqcXsYhB43y/AsQWpuE0J8WD6aeReMgcc2y0y7ZW+YqeA==}
+    dependencies:
+      '@dxos/broadcast': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/protocol': 2.22.0
+      '@types/debug': 4.1.7
+      '@types/node': 14.18.0
+      buffer-json-encoding: 1.0.2
+      debug: 4.3.3
+      ngraph.graph: 19.1.0
+      p-limit: 3.1.0
+      queue-microtask: 1.2.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/protocol-plugin-replicator/2.22.0:
+    resolution: {integrity: sha512-zc3sjryx2KEySbf6vN12gTqbNOIFPT2MslcX49xVfh3QZDQFozdjwcbEb6tVj1GCZwNe/IdHMGVLwThNkrUKPA==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/protocol': 2.22.0
+      '@dxos/util': 2.22.0
+      buffer-json-encoding: 1.0.2
+      debug: 4.3.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/protocol-plugin-rpc/2.22.0:
+    resolution: {integrity: sha512-wt075fsX5myPwAAuod9ZvOfbNfi1JAgydeg6xPyu28eK3ykHm23tyaePD3YF3Xxdsf4UfK84hQV0mROERkFFaw==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/protocol': 2.22.0
+      '@dxos/rpc': 2.22.0
+      '@dxos/util': 2.22.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/protocol/2.22.0:
+    resolution: {integrity: sha512-nab+INZLxHi31fcRIc3NUIRg0Fq7CcxcF9TCZH0qLvUv1r7TUXlfZV7CrkTL3DuXaZQF0GCEWL0+idHvUQMOkg==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/crypto': 2.22.0
+      assert: 2.0.0
+      buffer-json-encoding: 1.0.2
+      debug: 4.3.3
+      end-of-stream: 1.4.4
+      hypercore-protocol: github.com/dxos/hypercore-protocol/05513f9266f8bec4d29b144b72c59257c2d7bd60
+      nanoerror: 1.2.1
+      nanomessage: 8.4.0
+      signal-promise: 1.0.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/random-access-multi-storage/2.22.0:
+    resolution: {integrity: sha512-j8K14zsP27lNFU85+Hb47zbvO4iAo17b6fosxjyetma9sOZd04HsFU/TZoCCM3KhwdPCMlIy6Uj80SLc+TjFew==}
+    dependencies:
+      del: 5.1.0
+      pify: 5.0.0
+      random-access-file: 2.2.0
+      random-access-idb: 1.2.1
+      random-access-memory: 3.1.4
+      random-access-web: 2.0.3
+    dev: false
+
+  /@dxos/react-client/2.22.0_react@17.0.2:
+    resolution: {integrity: sha512-buH/WIxTB2YXvToee/NRfBotv3LT0uegH8r+niX1i3b0CN/x+OJlKswFLD1c5IDs7CJtAj9hUBVpuQzApp5/jw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/bot-factory-client': 2.22.0
+      '@dxos/client': 2.22.0
+      '@dxos/config': 2.22.0
+      '@dxos/credentials': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/echo-db': 2.22.0
+      '@dxos/util': 2.22.0
+      assert: 2.0.0
+      debug: 4.3.3
+      react: 17.0.2
+      react-display-name: 0.2.5
+      use-subscription: 1.5.1_react@17.0.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    dev: false
+
+  /@dxos/react-framekit/2.14.8_13ce05b28a9908d74d2d5b7d8120ac5c:
+    resolution: {integrity: sha512-CWNKPB64jbbcfep1TQ9TuGxeQM4aetdWccjW0ct1uwkSbzlnSNie5COsoSzlr2/yl0G1y4WyUgCZKEfaKhoNwQ==}
+    peerDependencies:
+      '@dxos/client': '*'
+      '@dxos/config': '*'
+      '@dxos/echo-db': '*'
+      '@dxos/react-client': '*'
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      '@dxos/client': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/echo-db': 2.22.0
+      '@dxos/react-client': 2.22.0_react@17.0.2
+      '@dxos/util': 2.22.0
+      '@paciolan/remote-module-loader': 2.6.2
+      debug: 4.3.3
+      minimatch: 3.0.4
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/react-registry-client/2.22.0_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-WmCuFgDsybPRM2L6OD7tly+Gua5YDWEg6IHvWqK9GT03L5XAbuIlIL3UasicVzYhwvu5Vt6ZBVVXXdokOW+GpA==}
+    peerDependencies:
+      react: '*'
+      react-dom: '*'
+    dependencies:
+      '@dxos/debug': 2.22.0
+      '@dxos/registry-client': 2.22.0
+      '@dxos/util': 2.22.0
+      assert: 2.0.0
+      debug: 4.3.3
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/registry-client/2.22.0:
+    resolution: {integrity: sha512-uJIuOWbk6DiO65omwJ4qSV55pxo6BnXlEFHocWB15OldgNrfkxFbifgphIm/VcST28YPuUXoucK0arZXsr1Ceg==}
+    engines: {node: '>= 14'}
+    dependencies:
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/util': 2.22.0
+      '@polkadot/api': 4.17.1
+      '@polkadot/keyring': 6.11.1
+      '@polkadot/metadata': 4.17.1
+      '@polkadot/rpc-core': 4.17.1
+      '@polkadot/types': 4.17.1
+      '@polkadot/util': 6.11.1
+      '@polkadot/util-crypto': 6.11.1
+      bn.js: 4.12.0
+      faker: 5.5.3
+      fs-extra: 8.1.0
+      multihashes: 4.0.3
+      protobufjs: 6.11.2
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/rpc/2.22.0:
+    resolution: {integrity: sha512-EGH8ITB/qelgjDq7XBkI9jny22xu6luvFg++Gu/ahCqO5OGZ84fZT1ivtRAMzTHhc3df/IKUr/jOUkQFGg5b+A==}
+    dependencies:
+      '@dxos/async': 2.22.0
+      '@dxos/codec-protobuf': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@dxos/proto': 2.22.0
+      debug: 4.3.3
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /@dxos/util/2.22.0:
+    resolution: {integrity: sha512-aQU9dW+7KLzx4pKxshCCXf2stBTpk6sjtGrear8uqkRI64MgszYh/WYATpVybrogFRtXgqvdXgnvMW50HQq2Cw==}
+    dependencies:
+      '@dxos/crypto': 2.22.0
+      '@dxos/debug': 2.22.0
+      '@types/node': 14.18.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -5415,22 +5894,6 @@ packages:
       '@emotion/utils': 1.0.0
       '@emotion/weak-memoize': 0.2.5
       stylis: 4.0.13
-
-  /@emotion/css/11.7.1_@babel+core@7.13.16:
-    resolution: {integrity: sha512-RUUgPlMZunlc7SE5A6Hg+VWRzb2cU6O9xlV78KCFgcnl25s7Qz/20oQg71iKudpLqk7xj0vhbJlwcJJMT0BOZg==}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-    peerDependenciesMeta:
-      '@babel/core':
-        optional: true
-    dependencies:
-      '@babel/core': 7.13.16
-      '@emotion/babel-plugin': 11.7.1_@babel+core@7.13.16
-      '@emotion/cache': 11.7.1
-      '@emotion/serialize': 1.0.2
-      '@emotion/sheet': 1.1.0
-      '@emotion/utils': 1.0.0
-    dev: true
 
   /@emotion/hash/0.8.0:
     resolution: {integrity: sha512-kBJtf7PH6aWwZ6fka3zQ0p6SBYzx4fl1LoZXE2RrnYST9Xljm7WfKJrU4g/Xr3Beg72MLrp1AWNUmuYJTL7Cow==}
@@ -6055,10 +6518,6 @@ packages:
     resolution: {integrity: sha512-nkalE/f1RvRGChwBnEIoBfSEYOXnCRdleKuv6+lePbMDrMZXeDQnqak5XDOeBgrPPyPfAdcCu/B5z+v3VhplGg==}
     dev: false
 
-  /@linaria/core/3.0.0-beta.13:
-    resolution: {integrity: sha512-3zEi5plBCOsEzUneRVuQb+2SAx3qaC1dj0FfFAI6zIJQoDWu0dlSwKijMRack7oO9tUWrchfj3OkKQAd1LBdVg==}
-    dev: false
-
   /@mapbox/node-pre-gyp/1.0.3:
     resolution: {integrity: sha512-9dTIfQW8HVCxLku5QrJ/ysS/b2MdYngs9+/oPrOTLvp3TrggdANYVW2h8FGJGDf0J7MYfp44W+c90cVJx+ASuA==}
     hasBin: true
@@ -6660,6 +7119,10 @@ packages:
       rimraf: 3.0.2
     dev: false
 
+  /@paciolan/remote-module-loader/2.6.2:
+    resolution: {integrity: sha512-A49c4kX70zNpjFNuLwa53+xMlGf1W/DXMqBFR1JOMGTIpfZ6KJLpfonRG+2eA1c3CFZNvn+j99QWFEd6lgKSMA==}
+    dev: false
+
   /@pmmmwh/react-refresh-webpack-plugin/0.4.3_4529b4027cea493748ec863d1a3aef24:
     resolution: {integrity: sha512-br5Qwvh8D2OQqSXpd1g/xqXKnK0r+Jz6qVKBbWmpUcrbGOxUrf39V5oZ1876084CGn18uMdR5uvPqBv9UqtBjQ==}
     engines: {node: '>= 10.x'}
@@ -6968,38 +7431,6 @@ packages:
 
   /@protobufjs/utf8/1.1.0:
     resolution: {integrity: sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=}
-    dev: false
-
-  /@remirror/core-constants/1.0.2:
-    resolution: {integrity: sha512-yiy+hqhjZwqR/pwLK4aXqzdR1helJytkz/xrfpgmSNh7Pj/HMl6gFxoGTI+5eS86mwsNecCcXQWKUhqVikWtiw==}
-    dependencies:
-      '@babel/runtime': 7.16.3
-    dev: false
-
-  /@remirror/core-helpers/1.0.5:
-    resolution: {integrity: sha512-fNYOhEQwCVr9F+inOtvW7gsd/MbErt/V8CLcLEba9vP4Yu87BNKSFMzgkPQffatmVZgbq5oaCOCaaG6C71hPXA==}
-    dependencies:
-      '@babel/runtime': 7.16.3
-      '@linaria/core': 3.0.0-beta.13
-      '@remirror/core-constants': 1.0.2
-      '@remirror/types': 0.1.1
-      '@types/object.omit': 3.0.0
-      '@types/object.pick': 1.3.1
-      '@types/throttle-debounce': 2.1.0
-      case-anything: 1.1.5
-      dash-get: 1.0.2
-      deepmerge: 4.2.2
-      fast-deep-equal: 3.1.3
-      make-error: 1.3.6
-      object.omit: 3.0.0
-      object.pick: 1.3.0
-      throttle-debounce: 3.0.1
-    dev: false
-
-  /@remirror/types/0.1.1:
-    resolution: {integrity: sha512-v0f6HF+hFyJs8VJuHRXEh7REKyuUi5rMHhxxTqwiKj/QxMMaVjKlPY0L1kFu+0dZ3gHmlKs8jmlSSIhgn4NpaA==}
-    dependencies:
-      type-fest: 1.4.0
     dev: false
 
   /@rollup/plugin-node-resolve/7.1.3_rollup@1.32.1:
@@ -7669,11 +8100,6 @@ packages:
   /@tootallnate/once/1.1.2:
     resolution: {integrity: sha512-RbzJvlNzmRq5c3O09UipeuXno4tA1FE6ikOjxZK0tuxVv3412l64l5t1W5pj4+rJq9vpkm/kwiR07aZXnsKPxw==}
     engines: {node: '>= 6'}
-
-  /@tootallnate/once/2.0.0:
-    resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
-    engines: {node: '>= 10'}
-    dev: false
 
   /@ts-morph/common/0.9.2:
     resolution: {integrity: sha512-IPyg+c3Am0EBoa63W0f/AKeLrJhvzMzQ4BIvD1baxLopmiHOj1HFTXYxC6e8iTZ+UYtN+/WFM9UyGRnoA20b8g==}
@@ -8419,18 +8845,6 @@ packages:
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
 
-  /@types/object.omit/3.0.0:
-    resolution: {integrity: sha512-I27IoPpH250TUzc9FzXd0P1BV/BMJuzqD3jOz98ehf9dQqGkxlq+hO1bIqZGWqCg5bVOy0g4AUVJtnxe0klDmw==}
-    dev: false
-
-  /@types/object.pick/1.3.1:
-    resolution: {integrity: sha512-YJ22uXcv4EyAlbUtXsfU50IW5wWcUQtauLH8nemV+EUABxE6DvNVGueq2fJWisxyfola17SrsUBBWNIFotuX3w==}
-    dev: false
-
-  /@types/orderedmap/1.0.0:
-    resolution: {integrity: sha512-dxKo80TqYx3YtBipHwA/SdFmMMyLCnP+5mkEqN0eMjcTBzHkiiX0ES118DsjDBjvD+zeSsSU9jULTZ+frog+Gw==}
-    dev: true
-
   /@types/parse-json/4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
 
@@ -8443,40 +8857,6 @@ packages:
 
   /@types/prop-types/15.7.4:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
-
-  /@types/prosemirror-model/1.16.1:
-    resolution: {integrity: sha512-SrrCe2cHlYrQ9o55e2i/c3wt1yRajTTpRLvzfmB+2DWjWEbBLTByVWyjrdpKtQTxAaTeU2aeDGo1iuwl/jF27w==}
-    dependencies:
-      '@types/orderedmap': 1.0.0
-    dev: true
-
-  /@types/prosemirror-schema-basic/1.0.2:
-    resolution: {integrity: sha512-dzT/6t+dq8/On1be0yarcOIu8wROjhK8QB5wslpLbtTIr5wb0iQv/esJm/KAHcD/PBXR9nSV4TL5AtQmBrcRnw==}
-    dependencies:
-      '@types/prosemirror-model': 1.16.1
-    dev: true
-
-  /@types/prosemirror-state/1.2.8:
-    resolution: {integrity: sha512-mq9uyQWcpu8jeamO6Callrdvf/e1H/aRLR2kZWSpZrPHctEsxWHBbluD/wqVjXBRIOoMHLf6ZvOkrkmGLoCHVA==}
-    dependencies:
-      '@types/prosemirror-model': 1.16.1
-      '@types/prosemirror-transform': 1.1.5
-      '@types/prosemirror-view': 1.23.1
-    dev: true
-
-  /@types/prosemirror-transform/1.1.5:
-    resolution: {integrity: sha512-Wr2HXaEF4JPklWpC17RTxE6PxyU54Taqk5FMhK1ojgcN93J+GpkYW8s0mD3rl7KfTmlhVwZPCHE9o0cYf2Go5A==}
-    dependencies:
-      '@types/prosemirror-model': 1.16.1
-    dev: true
-
-  /@types/prosemirror-view/1.23.1:
-    resolution: {integrity: sha512-6e1B2oKUnhmZPUrsVvYjDqeVjE6jGezygjtoHsAK4ZENAxHzHqy5NT4jUvdPTWjCYeH0t2Y7pSfRPNrPIyQX4A==}
-    dependencies:
-      '@types/prosemirror-model': 1.16.1
-      '@types/prosemirror-state': 1.2.8
-      '@types/prosemirror-transform': 1.1.5
-    dev: true
 
   /@types/pump/1.1.1:
     resolution: {integrity: sha512-wpRerjHDxFBQ4r8XNv3xHJZeuqrBBoeQ/fhgkooV2F7KsPIYRROb/+f9ODgZfOEyO5/w2ej4YQdpPPXipT8DAA==}
@@ -8511,7 +8891,6 @@ packages:
     resolution: {integrity: sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==}
     dependencies:
       '@types/react': 17.0.37
-    dev: true
 
   /@types/react-is/17.0.3:
     resolution: {integrity: sha512-aBTIWg1emtu95bLTLx0cpkxwGW3ueZv71nE2YFBpL8k/z5czEW8yYpOo8Dp+UUAFAtKwNaOsh/ioSeQnWlZcfw==}
@@ -8618,10 +8997,6 @@ packages:
     dependencies:
       '@types/jest': 26.0.24
     dev: true
-
-  /@types/throttle-debounce/2.1.0:
-    resolution: {integrity: sha512-5eQEtSCoESnh2FsiLTxE121IiE60hnMqcb435fShf4bpLRjEu1Eoekht23y6zXS9Ts3l+Szu3TARnTsA0GkOkQ==}
-    dev: false
 
   /@types/through2/2.0.36:
     resolution: {integrity: sha512-vuifQksQHJXhV9McpVsXKuhnf3lsoX70PnhcqIAbs9dqLH2NgrGz0DzZPDY3+Yh6eaRqcE1gnCQ6QhBn1/PT5A==}
@@ -10748,10 +11123,6 @@ packages:
     dependencies:
       rsvp: 4.8.5
 
-  /case-anything/1.1.5:
-    resolution: {integrity: sha512-UsoMDAMnOaD3mkNmbRg7WoCi6tViuqCihsUCVvHojgsVYJ6kcDjhrvzNwv8nZqjqatYTeQbfoDlJ+2xJVWwp4A==}
-    dev: false
-
   /case-sensitive-paths-webpack-plugin/2.3.0:
     resolution: {integrity: sha512-/4YgnZS8y1UXXmC02xD5rRrBEu6T5ub+mQHLNRj0fzTRbgdBYhsNo2V5EqwgqrExjxsjtF/OpAKAMkKsxbD5XQ==}
     engines: {node: '>=4'}
@@ -11289,7 +11660,6 @@ packages:
   /content-disposition/0.5.2:
     resolution: {integrity: sha1-DPaLud318r55YcOoUXjLhdunjLQ=}
     engines: {node: '>= 0.6'}
-    dev: true
 
   /content-disposition/0.5.3:
     resolution: {integrity: sha512-ExO0774ikEObIAEV9kDo50o+79VCUdEB6n6lzKgGwupcVeRlhrj3qGAfwq8G6uBJjkqLrhT0qEYFcWng8z1z0g==}
@@ -12257,10 +12627,6 @@ packages:
     resolution: {integrity: sha512-VvdQIPGdWP0SqFXghj79Wf/5LArmreyMsGLa6FG6iC4t3j7j5s71TrwWmT/4akbDQIqjfACkLZmjXhA7g2oUZw==}
     dev: false
 
-  /dash-get/1.0.2:
-    resolution: {integrity: sha512-4FbVrHDwfOASx7uQVxeiCTo7ggSdYZbqs8lH+WU6ViypPlDbe9y6IP5VVUDQBv9DcnyaiPT5XT0UWHgJ64zLeQ==}
-    dev: false
-
   /dashdash/1.14.1:
     resolution: {integrity: sha1-hTz6D3y+L+1d4gMmuN1YEDX24vA=}
     engines: {node: '>=0.10'}
@@ -12793,13 +13159,6 @@ packages:
     dependencies:
       webidl-conversions: 5.0.0
 
-  /domexception/4.0.0:
-    resolution: {integrity: sha512-A2is4PLG+eeSfoTMA95/s4pvAoSo2mKtiM5jlHkAVewmiO8ISFTFKZjH7UAM1Atli/OT/7JHOrJRJiMKUZKYBw==}
-    engines: {node: '>=12'}
-    dependencies:
-      webidl-conversions: 7.0.0
-    dev: false
-
   /domhandler/4.3.0:
     resolution: {integrity: sha512-fC0aXNQXqKSFTr2wDNZDhsEYjCiYsDWl3D01kwt25hm1YIPyDGHvvi3rw+PLqHAl/m71MaiF7d5zvBr0p5UB2g==}
     engines: {node: '>= 4'}
@@ -13170,11 +13529,6 @@ packages:
       es6-iterator: 0.1.3
       es6-symbol: 2.0.1
     dev: false
-
-  /esbuild/0.11.23:
-    resolution: {integrity: sha512-iaiZZ9vUF5wJV8ob1tl+5aJTrwDczlvGP0JoMmnpC2B0ppiMCu8n8gmy5ZTGl5bcG081XBVn+U+jP+mPFm5T5Q==}
-    hasBin: true
-    requiresBuild: true
 
   /esbuild/0.12.29:
     resolution: {integrity: sha512-w/XuoBCSwepyiZtIRsKsetiLDUVGPVw1E/R3VTFSecIy8UR7Cq3SOtwKHJMFoVqqVG36aGkzh4e8BvpO1Fdc7g==}
@@ -14095,7 +14449,6 @@ packages:
     resolution: {integrity: sha1-9K8+qfNNiicc9YrSs3WfQx8LMY0=}
     dependencies:
       punycode: 1.4.1
-    dev: true
 
   /fastest-validator/1.12.0:
     resolution: {integrity: sha512-Qc7oCVO9hAPz5GUONmToIoa95YWzoe7SLsrjIXTfCFf6HFQXxxWePXe8D+Kp/XCrr5H/pMJwP2xprW07wYv/BQ==}
@@ -15325,13 +15678,6 @@ packages:
     dependencies:
       whatwg-encoding: 1.0.5
 
-  /html-encoding-sniffer/3.0.0:
-    resolution: {integrity: sha512-oWv4T4yJ52iKrufjnyZPkrN0CH3QnrUqdB6In1g5Fe1mia8GmF36gnfNySxoZtxD5+NmYw1EElVXiBk93UeskA==}
-    engines: {node: '>=12'}
-    dependencies:
-      whatwg-encoding: 2.0.0
-    dev: false
-
   /html-entities/1.4.0:
     resolution: {integrity: sha512-8nxjcBcd8wovbeKx7h3wTji4e6+rhaVuPNpMqwWgnHh+N9ToqsCs6XztWRBPQ+UtzsoMAdKZtUENoVzU/EMtZA==}
     dev: false
@@ -15449,17 +15795,6 @@ packages:
       debug: 4.3.3
     transitivePeerDependencies:
       - supports-color
-
-  /http-proxy-agent/5.0.0:
-    resolution: {integrity: sha512-n2hY8YdoRE1i7r6M0w9DIw5GgZN0G25P8zLCRQ8rjXtTU3vsNFBI/vWK/UIeE6g5MUUz6avwAPXmL6Fy9D/90w==}
-    engines: {node: '>= 6'}
-    dependencies:
-      '@tootallnate/once': 2.0.0
-      agent-base: 6.0.2
-      debug: 4.3.3
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
 
   /http-proxy-middleware/0.19.1_debug@4.3.3:
     resolution: {integrity: sha512-yHYTgWMQO8VvwNS22eLLloAkvungsKdKTLO8AJlftYIKNfJr3GK3zK0ZCfzDDGUBttdGc8xFy1mCitvNKQtC3Q==}
@@ -15654,13 +15989,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dependencies:
       safer-buffer: 2.1.2
-
-  /iconv-lite/0.6.3:
-    resolution: {integrity: sha512-4fCk79wshMdzMp2rH06qWrJE4iolqLhCUH+OiuIgU++RB0+94NlDL81atO7GX55uUKueo0txHNtvEyI6D7WdMw==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      safer-buffer: 2.1.2
-    dev: false
 
   /icss-utils/4.1.1:
     resolution: {integrity: sha512-4aFq7wvWyMHKgxsH8QQtGpvbASCf+eM3wPRLI6R+MgAnTCZ6STYsRvttLvRWK0Nfif5piF394St3HeJDaljGPA==}
@@ -17290,18 +17618,17 @@ packages:
     hasBin: true
     dependencies:
       argparse: 2.0.1
-    dev: true
 
   /jsbn/0.1.1:
     resolution: {integrity: sha1-peZUwuWi3rXyAdls77yoDA7y9RM=}
     dev: true
 
-  /jsdom-global/3.0.2_jsdom@18.0.1:
+  /jsdom-global/3.0.2_jsdom@17.0.0:
     resolution: {integrity: sha1-a9KZwTsMRiay2iwDk81DhdYGrLk=}
     peerDependencies:
       jsdom: '>=10.0.0'
     dependencies:
-      jsdom: 18.0.1
+      jsdom: 17.0.0
     dev: false
 
   /jsdom/16.7.0:
@@ -17345,8 +17672,8 @@ packages:
       - supports-color
       - utf-8-validate
 
-  /jsdom/18.0.1:
-    resolution: {integrity: sha512-mgVzrYP4IJiJKVqXkAdBn+jg+nQgPusBxTJulz3m1Y/1RIrkk8aDoNaQE5BNbHwe72WwiwE7k3Av2THXDpvzPQ==}
+  /jsdom/17.0.0:
+    resolution: {integrity: sha512-MUq4XdqwtNurZDVeKScENMPHnkgmdIvMzZ1r1NSwHkDuaqI6BouPjr+17COo4/19oLNnmdpFDPOHVpgIZmZ+VA==}
     engines: {node: '>=12'}
     peerDependencies:
       canvas: ^2.5.0
@@ -17361,11 +17688,11 @@ packages:
       cssstyle: 2.3.0
       data-urls: 3.0.1
       decimal.js: 10.3.1
-      domexception: 4.0.0
+      domexception: 2.0.1
       escodegen: 2.0.0
       form-data: 4.0.0
-      html-encoding-sniffer: 3.0.0
-      http-proxy-agent: 5.0.0
+      html-encoding-sniffer: 2.0.1
+      http-proxy-agent: 4.0.1
       https-proxy-agent: 5.0.0
       is-potential-custom-element-name: 1.0.1
       nwsapi: 2.2.0
@@ -17374,13 +17701,13 @@ packages:
       symbol-tree: 3.2.4
       tough-cookie: 4.0.0
       w3c-hr-time: 1.0.2
-      w3c-xmlserializer: 3.0.0
-      webidl-conversions: 7.0.0
-      whatwg-encoding: 2.0.0
-      whatwg-mimetype: 3.0.0
-      whatwg-url: 10.0.0
+      w3c-xmlserializer: 2.0.0
+      webidl-conversions: 6.1.0
+      whatwg-encoding: 1.0.5
+      whatwg-mimetype: 2.3.0
+      whatwg-url: 9.1.0
       ws: 8.3.0
-      xml-name-validator: 4.0.0
+      xml-name-validator: 3.0.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -18669,7 +18996,6 @@ packages:
   /mime-db/1.33.0:
     resolution: {integrity: sha512-BHJ/EKruNIqJf/QahvxwQZXKygOQ256myeN/Ew+THcAa5q+PjyTTMMeNQC4DZw5AwfvelsUrA6B67NKMqXDbzQ==}
     engines: {node: '>= 0.6'}
-    dev: true
 
   /mime-db/1.51.0:
     resolution: {integrity: sha512-5y8A56jg7XVQx2mbv1lu49NR4dokRnhZYTtL+KGfaa27uq4pSTXkwQkFJl4pkRMyNFz/EtYDSkiiEHx3F7UN6g==}
@@ -18680,7 +19006,6 @@ packages:
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.33.0
-    dev: true
 
   /mime-types/2.1.34:
     resolution: {integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==}
@@ -19017,6 +19342,10 @@ packages:
 
   /moment/2.29.1:
     resolution: {integrity: sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==}
+
+  /monaco-editor/0.31.1:
+    resolution: {integrity: sha512-FYPwxGZAeP6mRRyrr5XTGHD9gRXVjy7GUzF4IPChnyt3fS5WrNxIkS8DNujWf6EQy0Zlzpxw8oTVE+mWI2/D1Q==}
+    dev: false
 
   /monotonic-timestamp/0.0.9:
     resolution: {integrity: sha1-W6Wtx6rIXh1853voRxYe0kazlgM=}
@@ -19688,13 +20017,6 @@ packages:
       es-abstract: 1.19.1
     dev: false
 
-  /object.omit/3.0.0:
-    resolution: {integrity: sha512-EO+BCv6LJfu+gBIF3ggLicFebFLN5zqzz/WWJlMFfkMyGth+oBkhxzDl0wx2W4GkLzuQs/FsSkXZb2IMWQqmBQ==}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      is-extendable: 1.0.1
-    dev: false
-
   /object.pick/1.3.0:
     resolution: {integrity: sha1-h6EKxMFpS9Lhy/U1kaZhQftd10c=}
     engines: {node: '>=0.10.0'}
@@ -19818,10 +20140,6 @@ packages:
       log-symbols: 4.1.0
       strip-ansi: 6.0.1
       wcwidth: 1.0.1
-    dev: false
-
-  /orderedmap/1.1.1:
-    resolution: {integrity: sha512-3Ux8um0zXbVacKUkcytc0u3HgC0b0bBLT+I60r2J/En72cI0nZffqrA7Xtf2Hqs27j1g82llR5Mhbd0Z1XW4AQ==}
     dev: false
 
   /original/1.0.2:
@@ -20152,7 +20470,6 @@ packages:
 
   /path-to-regexp/2.2.1:
     resolution: {integrity: sha512-gu9bD6Ta5bwGrrU8muHzVOBFFREpp2iRkVfhBJahwJ6p6Xw20SjT0MxLnwkjOibQmGSYhiUnf2FLe7k+jcFmGQ==}
-    dev: true
 
   /path-to-regexp/3.2.0:
     resolution: {integrity: sha512-jczvQbCUS7XmS7o+y1aEO9OBVFeZBQ1MDSEqmO7xSoPgOPoowY/SxLpZ6Vh97/8qHZOteiCKb7gkG9gA2ZUxJA==}
@@ -21168,6 +21485,14 @@ packages:
       object-assign: 4.1.1
       react-is: 16.13.1
 
+  /prop-types/15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /proper-lockfile/4.1.2:
     resolution: {integrity: sha512-TjNPblN4BwAWMXU8s9AEz4JmQxnD1NNL7bNOY/AKUzyamc379FWASUhc/K1pL2noVb+XmZKLL68cjzLsiOAMaA==}
     dependencies:
@@ -21182,68 +21507,6 @@ packages:
 
   /property-information/6.1.1:
     resolution: {integrity: sha512-hrzC564QIl0r0vy4l6MvRLhafmUowhO/O3KgVSoXIbbA2Sz4j8HGpJc6T2cubRVwMwpdiG/vKGfhT4IixmKN9w==}
-
-  /prosemirror-model/1.16.1:
-    resolution: {integrity: sha512-r1/w0HDU40TtkXp0DyKBnFPYwd8FSlUSJmGCGFv4DeynfeSlyQF2FD0RQbVEMOe6P3PpUSXM6LZBV7W/YNZ4mA==}
-    dependencies:
-      orderedmap: 1.1.1
-    dev: false
-
-  /prosemirror-schema-basic/1.1.2:
-    resolution: {integrity: sha512-G4q8WflNsR1Q33QAV4MQO0xWrHLOJ+BQcKswGXMy626wlQj6c/1n1v4eC9ns+h2y1r/fJHZEgSZnsNhm9lbrDw==}
-    dependencies:
-      prosemirror-model: 1.16.1
-    dev: false
-
-  /prosemirror-state/1.3.4:
-    resolution: {integrity: sha512-Xkkrpd1y/TQ6HKzN3agsQIGRcLckUMA9u3j207L04mt8ToRgpGeyhbVv0HI7omDORIBHjR29b7AwlATFFf2GLA==}
-    dependencies:
-      prosemirror-model: 1.16.1
-      prosemirror-transform: 1.3.4
-    dev: false
-
-  /prosemirror-suggest/1.0.7_d24d613a1b0a394920b212d0b441d3b8:
-    resolution: {integrity: sha512-sAkPrZV9GXEB2J2L/KwfESZ0VOLoelbXIZCMJb+t/f8Xfqg7D5svGBmj15ajkMFYsXI+Fdad8R+SaSr8TCZJUg==}
-    peerDependencies:
-      '@types/prosemirror-model': ^1
-      '@types/prosemirror-state': ^1
-      '@types/prosemirror-view': ^1
-      prosemirror-model: ^1
-      prosemirror-state: ^1
-      prosemirror-view: ^1
-    peerDependenciesMeta:
-      '@types/prosemirror-model':
-        optional: true
-      '@types/prosemirror-state':
-        optional: true
-      '@types/prosemirror-view':
-        optional: true
-    dependencies:
-      '@babel/runtime': 7.16.3
-      '@remirror/core-constants': 1.0.2
-      '@remirror/core-helpers': 1.0.5
-      '@remirror/types': 0.1.1
-      '@types/prosemirror-state': 1.2.8
-      '@types/prosemirror-view': 1.23.1
-      escape-string-regexp: 4.0.0
-      prosemirror-model: 1.16.1
-      prosemirror-state: 1.3.4
-      prosemirror-view: 1.23.6
-    dev: false
-
-  /prosemirror-transform/1.3.4:
-    resolution: {integrity: sha512-gTsg3UIeaFuEY6+YmNPMgTpEkCKPedkFIUnsPpOMbclU701fEVI/e4VOXACXh3BO5rZJaBbEBwrnzB0mLp6eBA==}
-    dependencies:
-      prosemirror-model: 1.16.1
-    dev: false
-
-  /prosemirror-view/1.23.6:
-    resolution: {integrity: sha512-B4DAzriNpI/AVoW0Lu6SVfX00jZZQxOVwdBQEjWlRbCdT9V0pvk4GQJ3JTFaib+b6BcPdRZ3MjWXz2xvV1rblA==}
-    dependencies:
-      prosemirror-model: 1.16.1
-      prosemirror-state: 1.3.4
-      prosemirror-transform: 1.3.4
-    dev: false
 
   /protobufjs/6.11.2:
     resolution: {integrity: sha512-4BQJoPooKJl2G9j3XftkIXjoC9C0Av2NOrWmbLWT1vH32GcSUHjM0Arra6UfTsVyfMAuFzaLucXn1sadxJydAw==}
@@ -21562,7 +21825,6 @@ packages:
   /range-parser/1.2.0:
     resolution: {integrity: sha1-9JvmtIeJTdxA3MlKMi9hEJLgDV4=}
     engines: {node: '>= 0.6'}
-    dev: true
 
   /range-parser/1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
@@ -21730,6 +21992,19 @@ packages:
 
   /react-lifecycles-compat/3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
+    dev: false
+
+  /react-monaco-editor/0.47.0_f005448b82d681ae018dd25fe974ac78:
+    resolution: {integrity: sha512-uXZMzYJReIHSA41Qjka2LZckEEawPQC0smpeUgkUvyaMiT8y9qFodIcQtLmSUj3g7gd/6W15a73jBs1d6sr+Mw==}
+    peerDependencies:
+      '@types/react': ^17.x
+      monaco-editor: ^0.31.1
+      react: ^17.x
+    dependencies:
+      '@types/react': 17.0.37
+      monaco-editor: 0.31.1
+      prop-types: 15.8.1
+      react: 17.0.2
     dev: false
 
   /react-refresh/0.8.3:
@@ -22732,7 +23007,6 @@ packages:
       path-is-inside: 1.0.2
       path-to-regexp: 2.2.1
       range-parser: 1.2.0
-    dev: true
 
   /serve-index/1.9.1:
     resolution: {integrity: sha1-03aNabHn2C5c4FD/9bRTvqEqkjk=}
@@ -24394,11 +24668,6 @@ packages:
     resolution: {integrity: sha512-4dbzIzqvjtgiM5rw1k5rEHtBANKmdudhGyBEajN01fEyhaAIhsoKNy6y7+IN93IfpFtwY9iqi7kD+xwKhQsNJA==}
     engines: {node: '>=8'}
 
-  /type-fest/1.4.0:
-    resolution: {integrity: sha512-yGSza74xk0UG8k+pLh5oeoYirvIiWo5t0/o3zHHAO2tRDiZcxWP7fywNlXhqb6/r6sWvwi+RsyQMWhVLe4BVuA==}
-    engines: {node: '>=10'}
-    dev: false
-
   /type-is/1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
     engines: {node: '>= 0.6'}
@@ -24981,13 +25250,6 @@ packages:
     dependencies:
       xml-name-validator: 3.0.0
 
-  /w3c-xmlserializer/3.0.0:
-    resolution: {integrity: sha512-3WFqGEgSXIyGhOmAFtlicJNMjEps8b1MG31NCA0/vOF9+nKMUW1ckhi9cnNHmf88Rzw5V+dwIwsm2C7X8k9aQg==}
-    engines: {node: '>=12'}
-    dependencies:
-      xml-name-validator: 4.0.0
-    dev: false
-
   /wait-for-expect/3.0.2:
     resolution: {integrity: sha512-cfS1+DZxuav1aBYbaO/kE06EOS8yRw7qOFoD3XtjTkYvCvh3zUvNST8DXK/nPaeqIzIv3P3kL3lRJn8iwOiSag==}
     dev: true
@@ -25283,13 +25545,6 @@ packages:
     dependencies:
       iconv-lite: 0.4.24
 
-  /whatwg-encoding/2.0.0:
-    resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
-    engines: {node: '>=12'}
-    dependencies:
-      iconv-lite: 0.6.3
-    dev: false
-
   /whatwg-fetch/3.6.2:
     resolution: {integrity: sha512-bJlen0FcuU/0EMLrdbJ7zOnW6ITZLrZMIarMUVmdKtsGvZna8vxKYaexICWPfZ8qwf9fzNq+UEIZrnSaApt6RA==}
     dev: false
@@ -25323,6 +25578,14 @@ packages:
       lodash: 4.17.21
       tr46: 2.1.0
       webidl-conversions: 6.1.0
+
+  /whatwg-url/9.1.0:
+    resolution: {integrity: sha512-CQ0UcrPHyomtlOCot1TL77WyMIm/bCwrJ2D6AOKGwEczU9EpyoqAokfqrf/MioU9kHcMsmJZcg1egXix2KYEsA==}
+    engines: {node: '>=12'}
+    dependencies:
+      tr46: 2.1.0
+      webidl-conversions: 6.1.0
+    dev: false
 
   /when/3.7.7:
     resolution: {integrity: sha1-q6A/w7tzbWyIsJHQE9io5ZDYRxg=}
@@ -25682,11 +25945,6 @@ packages:
 
   /xml-name-validator/3.0.0:
     resolution: {integrity: sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==}
-
-  /xml-name-validator/4.0.0:
-    resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
-    engines: {node: '>=12'}
-    dev: false
 
   /xml2js/0.4.23:
     resolution: {integrity: sha512-ySPiMjM0+pLDftHgXY4By0uswI3SPKLDw/i3UXbnO8M/p28zqexCUoPmQFrYD+/1BzhGJSs2i1ERWKJAtiLrug==}

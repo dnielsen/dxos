@@ -1,0 +1,23 @@
+{
+  "name": "@dxos/devtools-monaco",
+  "version": "0.1.0",
+  "scripts": {
+    "start": "esbuild-server dev",
+    "build": "esbuild-server build"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "@types/react": "^17.0.24",
+    "react-dom": "^17.0.2",
+    "@types/react-dom": "^17.0.9",
+    "react-monaco-editor": "~0.47.0",
+    "monaco-editor": "^0.31.1",
+    "@dxos/frame-dev-server": "~2.14.8",
+    "@dxos/config": "workspace:*",
+    "@dxos/react-client": "workspace:*"
+  },
+  "devDependencies": {
+    "@dxos/esbuild-server": "~1.7.5",
+    "@dxos/esbuild-plugins": "workspace:*"
+  }
+}
