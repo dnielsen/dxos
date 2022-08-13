@@ -6,7 +6,8 @@ import "google/protobuf/any.proto";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/empty.proto";
 import "any.proto";
-import "@dxos/protobuf-test";
+// TODO(wittjosiah): Fix.
+// import "@dxos/protobuf-test";
 import "extensions.proto";
 
 message Key {
@@ -74,7 +75,8 @@ message ComplexFields {
   google.protobuf.Any googleAny = 21;
   dxos.test.any.Any importedAny = 22;
 
-  optional TestFoo fooTest = 23;
+  // TODO(wittjosiah): Fix.
+  // optional TestFoo fooTest = 23;
 }
 
 message WithTimestamp {

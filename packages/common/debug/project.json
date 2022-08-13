@@ -3,12 +3,16 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "nx:run-script",
+      "executor": "@nrwl/js:tsc",
       "outputs": [
-        "packages/common/debug/dist"
+        "{options.outputPath}"
       ],
       "options": {
-        "script": "build"
+        "outputPath": "packages/common/debug/dist",
+        "main": "packages/common/debug/src/index.ts",
+        "tsConfig": "packages/common/debug/tsconfig.json",
+        "packageJson": "packages/common/debug/package.json",
+        "assets": ["packages/common/debug/*.md"]
       }
     }
   }

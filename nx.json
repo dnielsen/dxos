@@ -9,10 +9,9 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": [
-          "check",
+          "proto",
           "build",
-          "lint",
-          "test"
+          "check"
         ],
         "parallel": 6,
         "accessToken": "ZGVlNTQ0ODctNGI4ZS00MTc0LTljZDQtMzFlMzJkOTViMmQyfHJlYWQtd3JpdGU="
@@ -22,12 +21,13 @@
   "targetDefaults": {
     "build": {
       "dependsOn": [
-        "^build"
+        "^build",
+        "proto"
       ]
     },
     "check": {
       "dependsOn": [
-        "build"
+        "^build"
       ]
     }
   }

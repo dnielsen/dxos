@@ -5,7 +5,7 @@
     "declarationMap": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "incremental": true,
+    // "incremental": true,
     "jsx": "react",
     "lib": [
       "ESNext"
@@ -19,7 +19,14 @@
     "sourceMap": true,
     "strict": true,
     "stripInternal": true,
-    "target": "ES2018"
+    "target": "ES2018",
+    "paths": {
+      "@dxos/codec-protobuf": ["./packages/common/codec-protobuf/src/index.ts"],
+      "@dxos/debug": ["./packages/common/debug/src/index.ts"],
+      "@dxos/protobuf-compiler": ["./packages/common/protobuf-compiler/src/index.ts"],
+      "@dxos/protobuf-test": ["./packages/common/protobuf-test/src/index.ts"],
+      "@dxos/protocols": ["./packages/common/protocols/src/index.ts"]
+    }
   },
   "include": [
     "**/src/**/*.ts",

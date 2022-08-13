@@ -35,7 +35,7 @@ export function createProtoResolver (original: ProtoResolver): ProtoResolver {
   };
 }
 
-const resovler = createProtoResolver(pb.Root.prototype.resolvePath);
+const resolver = createProtoResolver(pb.Root.prototype.resolvePath);
 export const registerResolver = () => {
-  pb.Root.prototype.resolvePath = resovler;
+  pb.Root.prototype.resolvePath = resolver;
 };

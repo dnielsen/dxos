@@ -4,7 +4,11 @@
     "lib": [
       "DOM"
     ],
-    "outDir": "dist"
+    "outDir": "dist",
+    "types": [
+      "jest",
+      "node"
+    ]
   },
   "exclude": [
     "node_modules"
@@ -17,9 +21,5 @@
     {
       "path": "../protocols"
     }
-  ],
-  "types": [
-    "jest",
-    "node"
   ]
 }
