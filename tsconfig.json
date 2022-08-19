@@ -22,11 +22,15 @@
     "target": "ES2018",
     "baseUrl": "./",
     "paths": {
+      "@dxos/async": ["packages/common/async/src/index.ts"],
       "@dxos/codec-protobuf": ["packages/common/codec-protobuf/src/index.ts"],
+      "@dxos/crypto": ["packages/common/crypto/src/index.ts"],
       "@dxos/debug": ["packages/common/debug/src/index.ts"],
       "@dxos/protobuf-compiler": ["packages/common/protobuf-compiler/src/index.ts"],
       "@dxos/protobuf-test": ["packages/common/protobuf-test/src/index.ts"],
-      "@dxos/protocols": ["packages/common/protocols/src/index.ts"]
+      "@dxos/protocols": ["packages/common/protocols/src/index.ts"],
+      "@dxos/rpc": ["packages/common/rpc/src/index.ts"],
+      "@dxos/util": ["packages/common/util/src/index.ts"]
     }
   },
   "include": [

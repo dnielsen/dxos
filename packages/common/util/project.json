@@ -1,14 +1,19 @@
 {
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/common/util/src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "nx:run-script",
+      "executor": "@nrwl/js:tsc",
       "outputs": [
-        "packages/common/util/dist"
+        "{options.outputPath}"
       ],
       "options": {
-        "script": "build"
+        "outputPath": "packages/common/util/dist",
+        "main": "packages/common/util/src/index.ts",
+        "tsConfig": "packages/common/util/tsconfig.json",
+        "packageJson": "packages/common/util/package.json",
+        "assets": ["packages/common/util/*.md"]
       }
     }
   }

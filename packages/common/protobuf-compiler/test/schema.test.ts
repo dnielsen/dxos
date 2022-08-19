@@ -10,7 +10,7 @@ import expect from 'expect'
 import { MyKey } from './my-key';
 import { schema } from './proto/gen';
 import { ComplexFields, OptionalScalars, Outer, Scalars, TaskList, TaskType, WithTimestamp } from './proto/gen/dxos/test';
-// import { TestFoo } from './proto/gen/dxos/test/testfoo';
+import { TestFoo } from './proto/gen/dxos/test/testfoo';
 
 describe('Schema', () => {
 
@@ -47,29 +47,29 @@ describe('Schema', () => {
     expect(decoded).toEqual(initial);
   });
 
-  // test('encode and decode external package message', async () => {
-  //   const codec = schema.getCodecForType('dxos.test.testfoo.TestFoo');
+  test('encode and decode external package message', async () => {
+    const codec = schema.getCodecForType('dxos.test.testfoo.TestFoo');
 
-  //   const initial: TestFoo = { fizz: 3, bazz: '5' };
+    const initial: TestFoo = { fizz: 3, bazz: '5' };
 
-  //   const encoded = codec.encode(initial);
+    const encoded = codec.encode(initial);
 
-  //   expect(encoded).toBeInstanceOf(Uint8Array);
+    expect(encoded).toBeInstanceOf(Uint8Array);
 
-  //   const decoded = codec.decode(encoded);
+    const decoded = codec.decode(encoded);
 
-  //   expect(decoded).toEqual(initial);
+    expect(decoded).toEqual(initial);
 
-  //   expect(() => {
-  //     const encoded = codec.encode({ badname: 'badvalue' } as any);
+    expect(() => {
+      const encoded = codec.encode({ badname: 'badvalue' } as any);
 
-  //     expect(encoded).toBeInstanceOf(Uint8Array);
+      expect(encoded).toBeInstanceOf(Uint8Array);
 
-  //     const decoded = codec.decode(encoded);
+      const decoded = codec.decode(encoded);
 
-  //     expect(decoded).toEqual(initial);
-  //   }).toThrow();
-  // });
+      expect(decoded).toEqual(initial);
+    }).toThrow();
+  });
 
   test('complex fields round trip', () => {
     const codec = schema.getCodecForType('dxos.test.ComplexFields');
