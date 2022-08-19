@@ -27,5 +27,8 @@
         "assets": ["packages/common/protocols/*.md"]
       }
     }
-  }
+  },
+  "implicitDependencies": [
+    "codec-protobuf"
+  ]
 }
