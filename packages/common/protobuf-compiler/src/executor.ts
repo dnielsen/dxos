@@ -35,7 +35,8 @@ export default async function generateExecutor(
   await build({
     outdir,
     proto,
-    substitutions
+    substitutions,
+    projects: context.workspace.projects
   });
 
   return { success: true };

@@ -2,17 +2,28 @@
 // Copyright 2020 DXOS.org
 //
 
+import { ProjectConfiguration, workspaceRoot } from '@nrwl/devkit';
 import { existsSync } from 'fs';
 import { dirname, join } from 'path';
 import pb from 'protobufjs';
 
 export type ProtoResolver = (origin: string, target: string) => string | null;
 
-export function createProtoResolver (original: ProtoResolver): ProtoResolver {
+const createProtoResolver = async (
+  original: ProtoResolver,
+  projects?: { [projectName: string]: ProjectConfiguration }
+): Promise<ProtoResolver> => {
   return function (this: any, origin, target) {
     const classicResolved = original.call(this, origin, target);
     if (classicResolved && existsSync(classicResolved)) {
       return classicResolved;
+    }
+
+    if (projects) {
+      const projectName = target.startsWith('@') ? target.split('/')[1] : target.split('/')[0];
+      const projectPath = projects[projectName].root;
+      const targetPath = join(...(target.startsWith('@') ? target.split('/').slice(2) : target.split('/').slice(1)));
+      return join(workspaceRoot, projectPath, targetPath);
     }
 
     let config: any;
@@ -35,7 +46,7 @@ export function createProtoResolver (original: ProtoResolver): ProtoResolver {
   };
 }
 
-const resolver = createProtoResolver(pb.Root.prototype.resolvePath);
-export const registerResolver = () => {
+export const registerResolver = async (projects?: { [projectName: string]: ProjectConfiguration }) => {
+  const resolver = await createProtoResolver(pb.Root.prototype.resolvePath, projects);
   pb.Root.prototype.resolvePath = resolver;
 };

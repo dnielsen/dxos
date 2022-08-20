@@ -2,6 +2,7 @@
 // Copyright 2020 DXOS.org
 //
 
+import { ProjectConfiguration } from '@nrwl/devkit';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { dirname, join } from 'path';
 import pb from 'protobufjs';
@@ -14,10 +15,17 @@ import { ModuleSpecifier } from './module-specifier';
 import { splitSchemaIntoNamespaces } from './namespaces';
 import { parseSubstitutionsFile, registerResolver, SubstitutionsMap } from './parser';
 
-registerResolver();
-preconfigureProtobufjs();
+export const parseAndGenerateSchema = async (
+  substitutionsModule: ModuleSpecifier | undefined,
+  protoFiles: string[],
+  outDirPath: string,
+  projects?: {
+    [projectName: string]: ProjectConfiguration
+  }
+) => {
+  await registerResolver(projects);
+  preconfigureProtobufjs();
 
-export const parseAndGenerateSchema = async (substitutionsModule: ModuleSpecifier | undefined, protoFiles: string[], outDirPath: string) => {
   const substitutions = substitutionsModule ? parseSubstitutionsFile(substitutionsModule.resolve()) : {};
   const root = await pb.load(protoFiles);
 
@@ -41,7 +49,7 @@ export const parseAndGenerateSchema = async (substitutionsModule: ModuleSpecifie
   });
 };
 
-export interface GenerateSchemaOptions {
+interface GenerateSchemaOptions {
   schema: pb.Root
   outDir: string
   substitutions?: {
@@ -53,7 +61,7 @@ export interface GenerateSchemaOptions {
 /**
  * Generate typescript definitions for a given schema and write them to `options.outDir`.
  */
-export const generateSchema = (options: GenerateSchemaOptions) => {
+const generateSchema = (options: GenerateSchemaOptions) => {
   const namespaces = splitSchemaIntoNamespaces(options.schema);
 
   const printer = ts.createPrinter();

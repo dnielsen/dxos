@@ -2,6 +2,7 @@
 // Copyright 2022 DXOS.org
 //
 
+import { ProjectConfiguration } from '@nrwl/devkit';
 import { resolve } from 'path';
 
 import { logger } from './logger';
@@ -11,11 +12,15 @@ import { parseAndGenerateSchema } from './type-generator';
 export const build = async ({
   outdir,
   proto,
-  substitutions
+  substitutions,
+  projects
 }: {
   outdir: string
   proto: string[]
   substitutions?: string
+  projects: {
+    [projectName: string]: ProjectConfiguration
+  }
 }) => {
   const substitutionsModule = substitutions ? ModuleSpecifier.resolveFromFilePath(substitutions, process.cwd()) : undefined;
   const protoFilePaths = proto.map((file: string) => resolve(process.cwd(), file));
@@ -23,5 +28,5 @@ export const build = async ({
 
   logger.logCompilationOptions(substitutionsModule, protoFilePaths, outdirPath);
 
-  await parseAndGenerateSchema(substitutionsModule, protoFilePaths, outdirPath);
+  await parseAndGenerateSchema(substitutionsModule, protoFilePaths, outdirPath, projects);
 };
