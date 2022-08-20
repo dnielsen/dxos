@@ -16,5 +16,8 @@
         "assets": ["packages/common/util/*.md"]
       }
     }
-  }
+  },
+  "implicitDependencies": [
+    "crypto"
+  ]
 }
