@@ -16,7 +16,7 @@
           "lint",
           "prebuild",
           "prerelease",
-          "proto",
+          "protobuf",
           "test"
         ],
         "parallel": 6,
@@ -29,7 +29,7 @@
       "dependsOn": [
         "^build",
         "^bundle",
-        "proto",
+        "protobuf",
         "prebuild"
       ]
     },
@@ -42,7 +42,7 @@
       "dependsOn": [
         "^bundle",
         "build",
-        "proto",
+        "protobuf",
         "prebuild"
       ]
     },
@@ -50,13 +50,13 @@
       "dependsOn": [
         "lint",
         "test",
-        "proto",
+        "protobuf",
         "build"
       ]
     },
     "e2e": {
       "dependsOn": [
-        "proto",
+        "protobuf",
         "build",
         "bundle"
       ]
@@ -66,7 +66,7 @@
         "^build"
       ]
     },
-    "proto": {
+    "protobuf": {
       "dependsOn": [
         "^build"
       ]
@@ -75,7 +75,7 @@
       "dependsOn": [
         "^build",
         "^bundle",
-        "proto"
+        "protobuf"
       ]
     },
     "test": {
@@ -89,7 +89,7 @@
       ],
       "dependsOn": [
         "^build",
-        "proto"
+        "protobuf"
       ]
     }
   },

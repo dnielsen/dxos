@@ -2,7 +2,7 @@
   "sourceRoot": "packages/core/protocols/src",
   "projectType": "library",
   "targets": {
-    "proto": {
+    "protobuf": {
       "executor": "@dxos/protobuf-compiler:generate",
       "outputs": [
         "{options.basePath}/gen"

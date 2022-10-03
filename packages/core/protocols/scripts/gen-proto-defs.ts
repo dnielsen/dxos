@@ -69,6 +69,7 @@ const main = (
           path.join(path.relative(exportFile, '.'), prefix, sub)
         ],
         'names': [],
+        // TODO(burdon): Are these correct?
         'mappings': 'AAIA,cAAc,SAAS,CAAC;AACxB,cAAc,cAAc,CAAC;AAC7B,cAAc,aAAa,CAAC'
       }, undefined, 2) + '\n');
     }
