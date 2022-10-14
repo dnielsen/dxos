@@ -23,6 +23,12 @@ alias px="pnpm -w nx"
 
 ### Building
 
+__Note__: If your OS is Linux, before running the command below, make sure you have the following robotjs dependencies installed:
+```bash
+sudo apt-get install libxtst-dev libpng++-dev
+```
+(_robotjs_, as part of _playwright_ package being installed by __pnpm__ during the installation process, requires these dependencies to be met)
+
 To Install dependencies from the root directory:
 
 ```bash
