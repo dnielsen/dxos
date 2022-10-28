@@ -2,25 +2,12 @@
 // Copyright 2022 DXOS.org
 //
 
-import cx from 'classnames';
-import {
-  AddressBook,
-  Command,
-  DeviceMobileCamera,
-  Planet,
-  SignOut
-} from 'phosphor-react';
+import { AddressBook, Command, DeviceMobileCamera, Planet, SignOut } from 'phosphor-react';
 import React from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useParty, useProfile } from '@dxos/react-client';
-import {
-  Presence,
-  NavMenu,
-  NavMenuSeparatorProps,
-  useTranslation,
-  getSize
-} from '@dxos/react-uikit';
+import { NavMenu, NavMenuSeparatorProps, useTranslation, Presence } from '@dxos/react-uikit';
 
 import { useSafeSpaceKey } from '../../hooks';
 
@@ -68,12 +55,7 @@ export const AppLayout = () => {
 
   return (
     <div role='none' className='mt-24'>
-      <div
-        role='none'
-        className='fixed top-5 left-0 right-0 flex items-center gap-2 px-6'
-      >
-        <div role='none' className={cx(getSize(10), 'flex-none')} />
-        <div role='none' className='grow' />
+      <div role='none' className='fixed top-5 left-10 right-10 flex justify-center gap-2 px-6'>
         <NavMenu
           items={centerMenuItems.map((navMenuItem) =>
             'separator' in navMenuItem
@@ -116,9 +98,9 @@ export const AppLayout = () => {
           )}
           className='flex md:hidden grow-0 shrink'
         />
+      </div>
 
-        <div role='none' className='grow' />
-
+      <div role='none' className='fixed top-[1.625rem] right-5'>
         <Presence
           profile={profile!}
           party={space}

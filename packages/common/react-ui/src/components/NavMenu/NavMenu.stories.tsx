@@ -3,8 +3,10 @@
 //
 
 import '@dxosTheme';
+import { Alien, FlyingSaucer, Planet } from 'phosphor-react';
 import React from 'react';
 
+import { getSize } from '../../styles';
 import { templateForComponent } from '../../testing';
 import { NavMenu, NavMenuProps } from './NavMenu';
 
@@ -52,3 +54,25 @@ Default.args = {
     }
   ]
 };
+
+export const Compact = () => (
+  <NavMenu
+    variant='compact'
+    items={[
+      {
+        triggerLinkProps: { href: '#Alien' },
+        children: <Alien className={getSize(5)} />,
+        active: true
+      },
+      {
+        triggerLinkProps: { href: '#Saucer' },
+        children: <FlyingSaucer className={getSize(5)} />
+      },
+      {
+        triggerLinkProps: { href: '#Planet' },
+        children: <Planet className={getSize(5)} />
+      }
+    ]}
+    className='fixed top-0 left-0 right-0 justify-center'
+  />
+);
