@@ -30,7 +30,7 @@ export const JoinSpacePanel = ({
   const { status, cancel, error, connect, result } = useInvitationStatus();
 
   const redeemInvitation = useCallback(() => {
-    connect(client.halo.acceptInvitation(InvitationEncoder.decode(parseInvitation(invitationCode))));
+    connect(client.echo.acceptInvitation(InvitationEncoder.decode(parseInvitation(invitationCode))));
   }, [invitationCode]);
 
   useEffect(() => {

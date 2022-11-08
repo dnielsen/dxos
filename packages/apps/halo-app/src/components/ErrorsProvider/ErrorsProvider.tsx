@@ -44,7 +44,7 @@ export const ErrorsProvider = ({ children }: PropsWithChildren<{}>) => {
   const onWindowError = useCallback<Exclude<typeof window.onerror, null>>(
     (message, source, lineno, colno, error?: Error) => {
       captureException(error);
-      logError('onerror', message);
+      logError('onerror', message, error?.stack);
       addError(error!);
       return true; // Prevent default.
     },

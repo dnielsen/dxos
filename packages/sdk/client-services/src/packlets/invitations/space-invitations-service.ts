@@ -37,6 +37,7 @@ export class SpaceInvitationsServiceImpl implements InvitationsService {
       const observable = this._spaceInvitations.createInvitation(space);
       observable.subscribe({
         onConnecting: (invitation) => {
+          log('invitation connecting', invitation);
           assert(invitation.invitationId);
           invitationId = invitation.invitationId;
           this._createInvitations.set(invitation.invitationId, observable);
@@ -44,17 +45,20 @@ export class SpaceInvitationsServiceImpl implements InvitationsService {
           next(invitation);
         },
         onConnected: (invitation) => {
+          log('invitation connected', invitation);
           assert(invitation.invitationId);
           invitation.state = Invitation.State.CONNECTED;
           next(invitation);
         },
         onSuccess: (invitation) => {
+          log('invitation success', invitation);
           assert(invitation.invitationId);
           invitation.state = Invitation.State.SUCCESS;
           next(invitation);
           close();
         },
         onCancelled: () => {
+          log('invitation cancelled', invitation);
           assert(invitationId);
           invitation.invitationId = invitationId;
           invitation.state = Invitation.State.CANCELLED;
@@ -62,10 +66,12 @@ export class SpaceInvitationsServiceImpl implements InvitationsService {
           close();
         },
         onTimeout: (err: TimeoutError) => {
+          log('invitation timeout', err);
           invitation.state = Invitation.State.TIMEOUT;
           close(err);
         },
         onError: (err: any) => {
+          log('invitation error', err);
           invitation.state = Invitation.State.ERROR;
           close(err);
         }
@@ -87,6 +93,7 @@ export class SpaceInvitationsServiceImpl implements InvitationsService {
       const observable = this._spaceInvitations.acceptInvitation(invitation);
       observable.subscribe({
         onConnecting: (invitation) => {
+          log('invitation connecting', invitation);
           assert(invitation.invitationId);
           invitationId = invitation.invitationId;
           this._acceptInvitations.set(invitation.invitationId, observable);
@@ -94,17 +101,20 @@ export class SpaceInvitationsServiceImpl implements InvitationsService {
           next(invitation);
         },
         onConnected: (invitation) => {
+          log('invitation connected', invitation);
           assert(invitation.invitationId);
           invitation.state = Invitation.State.CONNECTED;
           next(invitation);
         },
         onSuccess: (invitation) => {
+          log('invitation success', invitation);
           assert(invitation.spaceKey);
           invitation.state = Invitation.State.SUCCESS;
           next(invitation);
           close();
         },
         onCancelled: () => {
+          log('invitation cancelled', invitation);
           assert(invitationId);
           invitation.invitationId = invitationId;
           invitation.state = Invitation.State.CANCELLED;
@@ -112,10 +122,12 @@ export class SpaceInvitationsServiceImpl implements InvitationsService {
           close();
         },
         onTimeout: (err: TimeoutError) => {
+          log('invitation timeout', err);
           invitation.state = Invitation.State.TIMEOUT;
           close(err);
         },
         onError: (err: any) => {
+          log('invitation error', err);
           invitation.state = Invitation.State.ERROR;
           close(err);
         }

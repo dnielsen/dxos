@@ -6,6 +6,7 @@ import { CaretLeft, Planet, UserPlus } from 'phosphor-react';
 import React, { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { InvitationEncoder } from '@dxos/client';
 import { useSafeSpaceKey } from '@dxos/react-appkit';
 import { useMembers, useParty, usePartyInvitations } from '@dxos/react-client';
 import { Button, getSize, Heading, useTranslation, Tooltip } from '@dxos/react-uikit';
@@ -24,9 +25,21 @@ export const SpaceSettingsPage = () => {
   const members = useMembers(space);
 
   const onCreateInvitation = useCallback(() => {
-    if (space) {
-      void space.createInvitation();
-    }
+    const observable = space?.createInvitation();
+    observable?.subscribe({
+      onConnecting: (invitation) => {
+        console.log('[connecting]', invitation, InvitationEncoder.encode(invitation));
+      },
+      onConnected: (invitation) => {
+        console.log('[connected]', invitation);
+      },
+      onSuccess: (invitation) => {
+        console.log('[success]', invitation);
+      },
+      onError: (err) => {
+        console.log('[error]', err);
+      }
+    });
   }, [space]);
 
   if (!space) {
