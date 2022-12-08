@@ -24,7 +24,7 @@ const App = ({ grid }: AppProps) => {
   return (
     <EchoGraph
       model={model}
-      itemAdapter={itemAdapter}
+      labelProvider={itemAdapter}
       styles={graphStyles}
       options={{
         grid

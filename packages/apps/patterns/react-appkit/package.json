@@ -26,7 +26,6 @@
     "url-join": "^5.0.0"
   },
   "devDependencies": {
-    "@dxos/react-client-testing": "workspace:*",
     "@dxos/vite-plugin": "workspace:*",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",

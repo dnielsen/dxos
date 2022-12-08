@@ -4,3 +4,4 @@
 
 export * from './templateForComponent';
 export * from './ClientProvider';
+export * from './ProfileInitializer';

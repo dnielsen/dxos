@@ -405,7 +405,6 @@ importers:
       '@dxos/log': workspace:*
       '@dxos/react-async': workspace:*
       '@dxos/react-client': workspace:*
-      '@dxos/react-client-testing': workspace:*
       '@dxos/react-uikit': workspace:*
       '@dxos/sentry': workspace:*
       '@dxos/telemetry': workspace:*
@@ -434,7 +433,6 @@ importers:
       '@dxos/util': link:../../../common/util
       url-join: 5.0.0
     devDependencies:
-      '@dxos/react-client-testing': link:../../../experimental/react-client-testing
       '@dxos/vite-plugin': link:../../../sdk/vite-plugin
       '@types/react': 18.0.25
       '@types/react-dom': 18.0.9

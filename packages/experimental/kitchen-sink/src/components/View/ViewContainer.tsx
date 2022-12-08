@@ -41,7 +41,7 @@ export const ViewContainer = ({ value, model, items, itemAdapter, selected, onCr
 
     {value === ViewType.Graph && (
       <BoxContainer expand>
-        <EchoGraph model={model} selected={selected} itemAdapter={itemAdapter} styles={graphStyles} />
+        <EchoGraph model={model} selected={selected} labelProvider={itemAdapter} styles={graphStyles} />
       </BoxContainer>
     )}
   </>

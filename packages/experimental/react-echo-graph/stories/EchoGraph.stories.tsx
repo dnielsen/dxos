@@ -39,7 +39,7 @@ const App = () => {
     (item) => Boolean(item.type?.startsWith('example:')) || item.type === SPACE_ITEM_TYPE
   ]);
 
-  return <EchoGraph model={model} itemAdapter={itemAdapter} styles={graphStyles} />;
+  return <EchoGraph model={model} labelProvider={itemAdapter} styles={graphStyles} />;
 };
 
 const AppWithEditor = () => {
@@ -74,7 +74,7 @@ const AppWithEditor = () => {
       </Box>
 
       <BoxContainer expand>
-        <EchoGraph model={model} selected={selected} itemAdapter={itemAdapter} styles={graphStyles} />
+        <EchoGraph model={model} selected={selected} labelProvider={itemAdapter} styles={graphStyles} />
       </BoxContainer>
     </BoxContainer>
   );

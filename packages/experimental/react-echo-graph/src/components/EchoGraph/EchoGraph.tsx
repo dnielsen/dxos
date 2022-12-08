@@ -3,7 +3,7 @@
 //
 
 import clsx from 'clsx';
-import React, { useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { Box } from '@mui/material';
 
@@ -11,21 +11,20 @@ import { Item, ItemID, ObjectModel } from '@dxos/client';
 import { Grid, SVG, SVGContextProvider, Zoom, useSvgContext } from '@dxos/gem-core';
 import { defaultGraphStyles, Graph, GraphLayoutNode, GraphForceProjector, Markers } from '@dxos/gem-spore';
 import { useDynamicRef } from '@dxos/react-async';
-import { ItemAdapter } from '@dxos/react-client-testing';
 
 import { EchoGraphModel } from './model';
 
 export interface EchoGraphProps {
   model?: EchoGraphModel;
   selected?: Set<ItemID>;
-  itemAdapter: ItemAdapter;
+  labelProvider: (item: Item<ObjectModel>) => string | undefined;
   styles?: any;
   options?: {
     grid?: boolean;
   };
 }
 
-export const EchoGraph = ({ model, selected, itemAdapter, styles, options = {} }: EchoGraphProps) => {
+export const EchoGraph: FC<EchoGraphProps> = ({ model, selected, labelProvider, styles, options = {} }) => {
   const context = useSvgContext();
   const projector = useMemo(
     () =>
@@ -78,7 +77,7 @@ export const EchoGraph = ({ model, selected, itemAdapter, styles, options = {} }
               }}
               labels={{
                 text: (node: GraphLayoutNode<Item<ObjectModel>>, highlight) =>
-                  highlight ? itemAdapter.title(node.data!) : undefined
+                  highlight ? labelProvider(node.data!) : undefined
               }}
             />
           </Zoom>
