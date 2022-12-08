@@ -78,7 +78,8 @@ export default defineConfig({
   base: '', // Ensure relative path to assets.
 
   build: {
-    // minify: false,
+    minify: false,
+    outDir: 'out/presenter',
     commonjsOptions: {
       include: [/packages/, /node_modules/]
     }
@@ -88,7 +89,7 @@ export default defineConfig({
   optimizeDeps: {
     force: true,
     include: [
-      // '@dxos/async',
+      '@dxos/async',
       '@dxos/client',
       '@dxos/client-services',
       '@dxos/keys',
@@ -96,19 +97,10 @@ export default defineConfig({
       '@dxos/config',
       '@dxos/gem-core',
       '@dxos/gem-spore',
-      // '@dxos/metagraph',
-      // '@dxos/protocols',
-      // '@dxos/react-appkit',
-      // '@dxos/react-async',
-      '@dxos/react-client'
-      // '@dxos/react-ui',
-      // '@dxos/react-uikit',
-      // '@dxos/rpc',
-      // '@dxos/network-manager',
-      // '@dxos/rpc-tunnel',
-      // '@dxos/sentry',
-      // '@dxos/telemetry',
-      // '@dxos/util'
+      '@dxos/protocols',
+      '@dxos/react-async',
+      '@dxos/react-client',
+      '@dxos/util'
     ]
   },
 
@@ -119,10 +111,12 @@ export default defineConfig({
     react(),
 
     // https://mdxjs.com/packages/remark-mdx
-    mdx(mdxOptions),
+    mdx(mdxOptions)
 
+    // TODO(burdon): Bundle failed.
     // https://www.npmjs.com/package/vite-plugin-fonts
     // https://fonts.google.com
+    /*
     VitePluginFonts({
       google: {
         injectTo: 'head-prepend',
@@ -147,5 +141,6 @@ export default defineConfig({
         ]
       }
     })
+    */
   ]
 });

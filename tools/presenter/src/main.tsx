@@ -6,10 +6,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 // https://www.npmjs.com/package/vite-plugin-fonts
-import 'virtual:fonts.css';
+// import 'virtual:fonts.css';
 
 import Index from './slides/index.mdx';
-import './style.css';
+// import './style.css';
 
 // TODO(burdon): Image layout plugin (sizing, position, bleed options).
 // TODO(burdon): Index page with frontmatter names.

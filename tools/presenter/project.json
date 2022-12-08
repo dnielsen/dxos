@@ -15,6 +15,20 @@
       "outputs": [
         "{options.outputPath}"
       ]
+    },
+    "bundle": {
+      "executor": "@nxext/vite:build",
+      "inputs": [
+        "^production",
+        "production"
+      ],
+      "options": {
+        "configFile": "tools/presenter/vite.config.ts",
+        "outputPath": "tools/presenter/out/presenter"
+      },
+      "outputs": [
+        "{options.outputPath}"
+      ]
     }
   }
 }
