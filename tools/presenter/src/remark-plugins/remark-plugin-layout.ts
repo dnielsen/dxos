@@ -12,7 +12,7 @@ type Meta = {
   layout?: string;
   header?: boolean;
   title?: string;
-  subheading?: string;
+  subtitle?: string;
 };
 
 type Matter = {
@@ -53,7 +53,7 @@ export const remarkPluginLayout = (options: Options) => (tree: any) => {
  * Create DOM layout based on frontmatter.
  */
 const createLayout = (meta: Meta, children: Node[]) => {
-  const { layout, header, title, subheading } = meta;
+  const { layout, header, title, subtitle } = meta;
 
   const page = (body: Node[]) => {
     const parts: Node[] = [];
@@ -61,7 +61,7 @@ const createLayout = (meta: Meta, children: Node[]) => {
       parts.push(
         div({ className: 'flex flex-col pl-2 pr-2 pt-1 pb-1 bg-slide-header' }, [
           u('heading', { depth: 1 }, [u('text', title ?? '')]),
-          u('heading', { depth: 3 }, [u('text', subheading ?? '')])
+          u('heading', { depth: 3 }, [u('text', subtitle ?? '')])
         ])
       );
     }
