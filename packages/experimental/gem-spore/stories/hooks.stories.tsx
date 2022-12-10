@@ -13,19 +13,16 @@ import { FullScreen, SVGContextProvider, defaultGridStyles, useGrid, useSvgConte
 
 import {
   GraphForceProjector,
-  TestGraphModel,
   GraphLayoutLink,
   GraphLayoutNode,
   GraphRenderer,
-  TestNode,
-  convertTreeToGraph,
   createMarkers,
   createSimulationDrag,
-  createTree,
   defaultGraphStyles,
   defaultMarkerStyles,
   linkerRenderer
 } from '../src';
+import { convertTreeToGraph, createTree, TestGraphModel, TestNode } from '../src/testing';
 import { styles } from './helpers';
 
 debug.enable('');

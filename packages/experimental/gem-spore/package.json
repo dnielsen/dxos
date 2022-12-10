@@ -4,15 +4,18 @@
   "description": "Gem spore.",
   "homepage": "https://github.com/dxos/gem#readme",
   "bugs": "https://github.com/dxos/gem/issues",
-  "repository": "dxos/gem.git",
+  "repository": "github:dxos/dxos",
   "license": "MIT",
   "author": "DXOS.org",
   "main": "dist/lib/node/index.cjs",
   "browser": {
-    "./dist/lib/node/index.cjs": "./dist/lib/browser/index.mjs"
+    "./dist/lib/node/index.cjs": "./dist/lib/browser/index.mjs",
+    "./dist/lib/node/testing/index.cjs": "./dist/lib/browser/testing/index.mjs"
   },
   "types": "dist/types/src/index.d.ts",
   "files": [
+    "testing.d.ts",
+    "testing.js",
     "dist",
     "src"
   ],
@@ -26,8 +29,7 @@
     "d3": "^7.4.4",
     "d3-force": "~3.0.0",
     "debug": "^4.3.3",
-    "immutability-helper": "^3.0.2",
-    "use-resize-observer": "^9.0.0"
+    "immutability-helper": "^3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

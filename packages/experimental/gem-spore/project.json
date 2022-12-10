@@ -17,7 +17,8 @@
       "executor": "@dxos/esbuild:build",
       "options": {
         "entryPoints": [
-          "packages/experimental/gem-spore/src/index.ts"
+          "packages/experimental/gem-spore/src/index.ts",
+          "packages/experimental/gem-spore/src/testing/index.ts"
         ],
         "outputPath": "packages/experimental/gem-spore/dist/lib"
       },

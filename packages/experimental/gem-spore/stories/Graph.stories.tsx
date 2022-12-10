@@ -6,18 +6,8 @@ import React, { useMemo } from 'react';
 
 import { createSvgContext, FullScreen, Grid, SVG, SVGContextProvider, Zoom } from '@dxos/gem-core';
 
-import {
-  convertTreeToGraph,
-  createGraph,
-  createTree,
-  seed,
-  Graph,
-  GraphForceProjector,
-  GraphLayoutNode,
-  Markers,
-  TestGraphModel,
-  TestNode
-} from '../src';
+import { Graph, GraphForceProjector, GraphLayoutNode, Markers } from '../src';
+import { convertTreeToGraph, createGraph, createTree, seed, TestGraphModel, TestNode } from '../src/testing';
 
 export default {
   title: 'gem-spore/Graph'

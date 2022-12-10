@@ -5,4 +5,3 @@
 export * from './components';
 export * from './graph';
 export * from './scene';
-export * from './testing';
