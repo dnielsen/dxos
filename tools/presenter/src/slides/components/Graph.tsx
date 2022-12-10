@@ -4,10 +4,8 @@
 
 import React, { useMemo } from 'react';
 
-// import { Client } from '@dxos/client';
 import { SVG, SVGContextProvider, Zoom } from '@dxos/gem-core';
-import { Graph as GemGraph, Markers } from '@dxos/gem-spore';
-import { convertTreeToGraph, createTree, TestGraphModel } from '@dxos/gem-spore/testing';
+import { Graph as GemGraph, Markers, convertTreeToGraph, createTree, TestGraphModel } from '@dxos/gem-spore';
 
 // console.log(Client);
 export const Graph = () => {

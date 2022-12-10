@@ -5,3 +5,6 @@
 export * from './components';
 export * from './graph';
 export * from './scene';
+
+// TODO(burdon): Separate export.
+export * from './testing';

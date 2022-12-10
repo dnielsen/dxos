@@ -8,14 +8,14 @@
   "license": "MIT",
   "author": "DXOS.org",
   "main": "dist/lib/node/index.cjs",
-  "browser": {
+  "__browser": {
     "./dist/lib/node/index.cjs": "./dist/lib/browser/index.mjs",
     "./dist/lib/node/testing/index.cjs": "./dist/lib/browser/testing/index.mjs"
   },
   "types": "dist/types/src/index.d.ts",
   "files": [
-    "testing.d.ts",
-    "testing.js",
+    "__testing.d.ts",
+    "__testing.js",
     "dist",
     "src"
   ],
