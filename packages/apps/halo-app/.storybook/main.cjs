@@ -28,7 +28,6 @@ module.exports = {
         '@dxos/protocols',
         '@dxos/react-async',
         '@dxos/react-client',
-        '@dxos/react-client-testing',
         '@dxos/react-components',
         '@dxos/react-toolkit',
         '@dxos/util'
@@ -42,7 +41,6 @@ module.exports = {
           /protocols/,
           /react-async/,
           /react-client/,
-          /react-client-testing/,
           /react-components/,
           /react-toolkit/,
           /util/,

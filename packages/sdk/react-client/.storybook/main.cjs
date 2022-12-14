@@ -26,8 +26,8 @@ module.exports = {
         force: true,
         include: [
           '@dxos/async',
-          '@dxos/bot-factory-client',
           '@dxos/client',
+          '@dxos/client/testing',
           '@dxos/codec-protobuf',
           '@dxos/config',
           '@dxos/debug',
@@ -51,7 +51,10 @@ module.exports = {
       plugins: [
         ConfigPlugin(),
         ThemePlugin({
-          content: [resolve(__dirname, '../src') + '/**/*.{ts,tsx,js,jsx}']
+          content: [
+            resolve(__dirname, '../src') + '/**/*.{ts,tsx,js,jsx}',
+            resolve(__dirname, '../node_modules/@dxos/react-ui/dist/**/*.mjs')
+          ]
         })
       ]
     })

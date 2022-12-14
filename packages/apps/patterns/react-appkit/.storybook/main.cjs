@@ -29,7 +29,7 @@ module.exports = {
           '@dxos/config',
           '@dxos/keys',
           '@dxos/react-client',
-          '@dxos/react-client-testing',
+          '@dxos/react-client/testing',
           '@dxos/react-uikit',
           '@dxos/react-ui',
           '@dxos/util',

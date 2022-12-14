@@ -34,7 +34,8 @@ export interface ListProps {
 }
 
 const ListLoaded = ({ space, list, listItems: propsListItems }: ListLoadedProps) => {
-  const listItems = useSelection(list?.select().children().filter({ type: LIST_ITEM_TYPE })) ?? propsListItems;
+  const { data: listItems } =
+    useSelection(list?.select().children().filter({ type: LIST_ITEM_TYPE })) ?? propsListItems;
 
   const onAction = useCallback(
     async (action: ListAction) => {
@@ -100,8 +101,8 @@ export const List = ({ spaceKey, itemId }: ListProps) => {
   const { t } = useTranslation('uikit');
 
   const space = useSpace(spaceKey);
-  const list = (useSelection(space?.database.select({ id: itemId })) ?? [])[0];
-  const listItems = useSelection(list?.select().children().filter({ type: LIST_ITEM_TYPE }));
+  const { data: [list] = [] } = useSelection(space?.database.select({ id: itemId }));
+  const { data: listItems } = useSelection(list?.select().children().filter({ type: LIST_ITEM_TYPE }));
 
   // TODO(thure): this should become `Suspense` when the above hooks support it
   return space && list && listItems ? (

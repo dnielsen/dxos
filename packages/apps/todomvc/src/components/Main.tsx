@@ -18,8 +18,8 @@ export const Main = () => {
     space: Space;
     item: Item<ObjectModel>;
   }>();
-  const todoItems = useSelection<Item<ObjectModel>>(item.select().children().filter({ type: TODO_TYPE })) ?? [];
-  const todos = todoItems.map((item) => ({
+  const { data = [] } = useSelection<Item<ObjectModel>>(item.select().children().filter({ type: TODO_TYPE }));
+  const todos = data.map((item) => ({
     id: item.id,
     title: item.model.get('title'),
     completed: item.model.get('completed')
@@ -54,28 +54,28 @@ export const Main = () => {
 
   const handleToggle = useCallback(
     (todo: Todo) => {
-      const item = todoItems.find((item) => item.id === todo.id);
+      const item = data.find((item) => item.id === todo.id);
       void item?.model.set('completed', !todo.completed);
     },
-    [todoItems]
+    [data]
   );
 
   const handleDestroy = useCallback(
     (todo: Todo) => {
-      const item = todoItems.find((item) => item.id === todo.id);
+      const item = data.find((item) => item.id === todo.id);
       // TODO(wittjosiah): Item deletion is not working.
       void item?.delete();
     },
-    [todoItems]
+    [data]
   );
 
   const handleSave = useCallback(
     (todo: Todo, val: string) => {
-      const item = todoItems.find((item) => item.id === todo.id);
+      const item = data.find((item) => item.id === todo.id);
       void item?.model.set('title', val);
       setEditing(undefined);
     },
-    [todoItems]
+    [data]
   );
 
   const handleShare = useCallback(async () => {
@@ -87,20 +87,20 @@ export const Main = () => {
   const handleToggleAll = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       const checked = event.target.checked;
-      todoItems.forEach((item) => {
+      data.forEach((item) => {
         void item.model.set('completed', checked);
       });
     },
-    [todoItems]
+    [data]
   );
 
   const handleClearCompleted = useCallback(() => {
-    todoItems
+    data
       .filter((item) => item.model.get('completed'))
       .forEach((item) => {
         void item.delete();
       });
-  }, [todoItems]);
+  }, [data]);
 
   const shownTodos = todos.filter((todo) => {
     switch (nowShowing) {
