@@ -27,6 +27,7 @@
     "@dxos/rpc": "workspace:*",
     "@dxos/rpc-tunnel": "workspace:*",
     "@dxos/util": "workspace:*",
+    "use-interval": "^1.4.0",
     "use-subscription": "^1.8.0"
   },
   "devDependencies": {

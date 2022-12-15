@@ -3349,6 +3349,7 @@ importers:
       level-js: ^5.0.2
       react: ^18.2.0
       react-dom: ^18.2.0
+      use-interval: ^1.4.0
       use-subscription: ^1.8.0
     dependencies:
       '@dxos/async': link:../../common/async
@@ -3365,6 +3366,7 @@ importers:
       '@dxos/rpc': link:../../core/mesh/rpc
       '@dxos/rpc-tunnel': link:../../core/mesh/rpc-tunnel
       '@dxos/util': link:../../common/util
+      use-interval: 1.4.0_react@18.2.0
       use-subscription: 1.8.0_react@18.2.0
     devDependencies:
       '@dxos/react-ui': link:../../common/react-ui
@@ -32676,6 +32678,15 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /use-interval/1.4.0_react@18.2.0:
+    resolution: {integrity: sha512-1betIJun2rXKLxa30AFOBZCeZhsBJoJ/3+gkCeYbJ63lAR//EnAb1NjNeFqzgqeM7zQfR76rrCUaA8DvfgoOpA==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      react: '>=16.8.0 || ^17'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /use-isomorphic-layout-effect/1.1.2_iapumuv4e6jcjznwuxpf4tt22e:
