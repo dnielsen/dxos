@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.21](https://github.com/dxos/dxos/compare/v0.1.20...v0.1.21) (2022-12-16)
+
+
+### Bug Fixes
+
+* react-list and react-composer Storybooks ([#2160](https://github.com/dxos/dxos/issues/2160)) ([8b154cc](https://github.com/dxos/dxos/commit/8b154cc4814792766a03b2aff7b3d18f3b2ef08f))
+
 ## [0.1.20](https://github.com/dxos/dxos/compare/v0.1.19...v0.1.20) (2022-12-16)
 
 
